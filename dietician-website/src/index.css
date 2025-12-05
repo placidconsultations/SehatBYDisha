@@ -1,0 +1,51 @@
+/* Import Font */
+@import url('https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap');
+
+/* Tailwind Base, Components, Utilities */
+@import "tailwindcss";
+
+/* -------------------------------
+   Base Layer
+--------------------------------*/
+@layer base {
+  :root {
+    --color-darkGray: #202124;
+    --color-white: #ffffff;
+    --color-lightGray: #faf9f6;
+    --color-green: #25c00ade;
+    --color-darkGrayish: #727272;
+  }
+
+  /* Dark variant variables */
+  .dark {
+    --color-darkGray: #0d0d0d;
+    --color-white: #e5e5e5;
+    --color-lightGray: #1a1a1a;
+    --color-green: #1daf03de;
+    --color-darkGrayish: #9a9a9a;
+  }
+
+  /* Global font + smooth rendering */
+  body {
+    @apply bg-[var(--color-lightGray)] text-[var(--color-darkGray)] antialiased;
+    font-family: 'Oxygen', sans-serif;
+  }
+
+  .dark body {
+    @apply bg-[var(--color-darkGray)] text-[var(--color-white)];
+  }
+}
+
+/* -------------------------------
+   Component Layer (Optional UI)
+--------------------------------*/
+@layer components {
+  .btn-primary {
+    @apply px-4 py-2 rounded-lg font-medium bg-[var(--color-green)] text-white transition-all;
+  }
+
+  .btn-primary:hover {
+    @apply opacity-90;
+  }
+}
+
