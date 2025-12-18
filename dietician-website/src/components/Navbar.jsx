@@ -32,7 +32,7 @@ const Navbar = () => {
     { name: 'Services', path: '/services' },
     {name: 'Plans', path: '/plans'},
     { name: 'About', path: '/about' },
-    { name: 'Blog', path: '/blog' },
+    { name: 'Blog', path: '/blogs' },
     { name: 'Contact', path: '/contact' },
 
   ];
@@ -78,14 +78,14 @@ const Navbar = () => {
                   }`}></span>
                 </Link>
               ))}
-              <Link
+              {/* <Link
                 to="/appointment"
                 className="ml-4 px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-[var(--color-green)] hover:bg-[var(--color-darkGreen)] transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[var(--color-green)]/20"
               >
                 <div className="flex items-center">
                   <span>Book Appointment</span>
                 </div>
-              </Link>
+              </Link> */}
             </div>
           </div>
 
@@ -131,12 +131,12 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          <Link
+          {/* <Link
             to="/appointment"
             className="mt-2 block w-full px-4 py-3 text-center rounded-lg text-base font-medium text-white bg-[var(--color-green)] hover:bg-[var(--color-darkGreen)] transition-all duration-300 shadow-md"
           >
             Book Appointment
-          </Link>
+          </Link> */}
         </div>
       </div>
     </nav>

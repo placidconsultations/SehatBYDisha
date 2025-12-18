@@ -4,6 +4,10 @@ import Background from '../../components/Background';
 import Navbar from '../../components/Navbar';
 import { WhyChooseUs } from '../../components/WhyChooseUs';
 import Footer from '../../components/Footer';
+import PricingPage from './PricingPage';
+import TestimonialTicker from '../../components/TestimonialTicker';
+import Blogs from './Blogs';
+import Contact from './Contact';
 
 const Home = () => {
   return (
@@ -59,20 +63,20 @@ const Home = () => {
 
                 {/* Primary Button */}
                 <Link
-                  to="/appointment"
+                  to="/plans"
                   className="
-      inline-flex justify-center items-center
-      px-6 py-3 relative z-30 rounded-md font-medium text-white text-base
-      bg-[var(--color-green)] border-2 border-[var(--color-green)]
-      transition-all duration-700 overflow-hidden
-      [text-shadow:3px_5px_2px_rgba(0,0,0,0.25)]
-      hover:[text-shadow:2px_2px_2px_rgba(0,0,0,0.20)]
-      after:content-[''] after:absolute after:left-5 after:bottom-0
-      after:h-1 after:w-1 after:bg-transparent
-      after:rounded-md after:-z-20 after:translate-y-full
-      after:transition-all after:duration-700 hover:after:scale-[300]
-      hover:bg-transparent hover:text-[var(--color-green)]
-    "
+                            inline-flex justify-center items-center
+                            px-6 py-3 relative z-30 rounded-md font-medium text-white text-base
+                            bg-[var(--color-green)] border-2 border-[var(--color-green)]
+                            transition-all duration-700 overflow-hidden
+                            [text-shadow:3px_5px_2px_rgba(0,0,0,0.25)]
+                            hover:[text-shadow:2px_2px_2px_rgba(0,0,0,0.20)]
+                            after:content-[''] after:absolute after:left-5 after:bottom-0
+                            after:h-1 after:w-1 after:bg-transparent
+                            after:rounded-md after:-z-20 after:translate-y-full
+                            after:transition-all after:duration-700 hover:after:scale-[300]
+                            hover:bg-transparent hover:text-[var(--color-green)]
+                          "
                 >
                   View Plans
                 </Link>
@@ -81,18 +85,18 @@ const Home = () => {
                 <Link
                   to="/services"
                   className="
-      inline-flex justify-center items-center
-      px-6 py-3 relative z-30 rounded-md font-medium text-base
-      text-[var(--color-green)] border-2 border-[var(--color-green)]
-      transition-all duration-700 overflow-hidden
-      [text-shadow:3px_5px_2px_rgba(0,0,0,0.25)]
-      hover:[text-shadow:2px_2px_2px_rgba(0,0,0,0.20)]
-      after:content-[''] after:absolute after:left-5 after:bottom-0
-      after:h-1 after:w-1 after:bg-[var(--color-green)]
-      after:rounded-md after:-z-20 after:translate-y-full
-      after:transition-all after:duration-700 hover:after:scale-[300]
-      hover:bg-[var(--color-green)] hover:text-white
-    "
+                              inline-flex justify-center items-center
+                              px-6 py-3 relative z-30 rounded-md font-medium text-base
+                              text-[var(--color-green)] border-2 border-[var(--color-green)]
+                              transition-all duration-700 overflow-hidden
+                              [text-shadow:3px_5px_2px_rgba(0,0,0,0.25)]
+                              hover:[text-shadow:2px_2px_2px_rgba(0,0,0,0.20)]
+                              after:content-[''] after:absolute after:left-5 after:bottom-0
+                              after:h-1 after:w-1 after:bg-[var(--color-green)]
+                              after:rounded-md after:-z-20 after:translate-y-full
+                              after:transition-all after:duration-700 hover:after:scale-[300]
+                              hover:bg-[var(--color-green)] hover:text-white
+                            "
                 >
                   Message
                 </Link>
@@ -192,13 +196,159 @@ const Home = () => {
         </section>
 
         {/* Why to choose us */}
-
         <section className="mt-10 py-16 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <WhyChooseUs />
           </div>
-          </section>
+        </section>
 
+        {/* Services */}
+        <section className="py-8 bg-transparent">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <div className="inline-block">
+                <h2 className="text-3xl font-bold text-black sm:text-4xl">Our <span className='text-[var(--color-green)]'>Services</span></h2>
+                <div className="h-1 w-24 bg-black rounded-lg ml-auto mt-2 mb-6"></div>
+              </div>
+              <p className="mt-2 text-lg text-gray-600 max-w-2xl mx-auto">
+                Professional nutrition services tailored to your individual needs and goals
+              </p>
+            </div>
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+              {/* Service Card 1 */}
+              <div className="bg-[var(--color-green)]/30 rounded-sm shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-blue-100 text-blue-600 mb-4">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Personalized Diet Plans</h3>
+                  <p className="text-gray-600 flex-grow">
+                    Customized nutrition plans designed specifically for your body type, lifestyle, and health goals.
+                  </p>
+                </div>
+                <Link
+                  to="/services"
+                  className="px-6 py-4 bg-gray-50 text-blue-600 hover:text-blue-800 font-medium inline-block"
+                >
+                  Learn more →
+                </Link>
+              </div>
+
+              {/* Service Card 2 */}
+              <div className="bg-[var(--color-green)]/40 rounded-sm shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-green-100 text-green-600 mb-4">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Weight Management</h3>
+                  <p className="text-gray-600 flex-grow">
+                    Sustainable weight loss or gain programs with personalized guidance and continuous support.
+                  </p>
+                </div>
+                <Link
+                  to="/services"
+                  className="px-6 py-4 bg-gray-50 text-blue-600 hover:text-blue-800 font-medium inline-block"
+                >
+                  Learn more →
+                </Link>
+              </div>
+
+              {/* Service Card 3 */}
+              <div className="bg-[var(--color-green)]/35 rounded-sm shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-purple-100 text-purple-600 mb-4">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Medical Nutrition Therapy</h3>
+                  <p className="text-gray-600 flex-grow">
+                    Specialized nutrition therapy for managing medical conditions like diabetes, PCOS, and more.
+                  </p>
+                </div>
+                <Link
+                  to="/services"
+                  className="px-6 py-4 bg-gray-50 text-blue-600 hover:text-blue-800 font-medium inline-block"
+                >
+                  Learn more →
+                </Link>
+              </div>
+
+              {/* Service Card 4 */}
+              <div className="bg-[var(--color-green)]/50 rounded-sm shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300 h-full flex flex-col">
+                <div className="p-6 flex-1 flex flex-col">
+                  <div className="flex-shrink-0 flex items-center justify-center h-16 w-16 rounded-full bg-yellow-100 text-yellow-600 mb-4">
+                    <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Corporate Wellness</h3>
+                  <p className="text-gray-600 flex-grow">
+                    Comprehensive workplace wellness programs to improve employee health and productivity.
+                  </p>
+                </div>
+                <Link
+                  to="/services"
+                  className="px-6 py-4 bg-gray-50 text-blue-600 hover:text-blue-800 font-medium inline-block"
+                >
+                  Learn more →
+                </Link>
+
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Plans */}
+        <section className="py-2">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <PricingPage/>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-10">
+          <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8"></div>
+        <TestimonialTicker />
+        </section>
+
+
+        {/* Blogs */}
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl">
+                Latest <span className="text-[var(--color-green)]">Blogs</span>
+              </h2>
+              <p className="mt-3 max-w-2xl mx-auto text-lg text-gray-500">
+                Check out our latest articles on nutrition, health, and wellness
+              </p>
+            </div>
+            <Blogs limit={3} />
+            <div className="mt-10 text-center">
+              <Link 
+                to="/blogs"
+                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[var(--color-green)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              >
+                View All Blogs
+                <svg className="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fillRule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* Contact */}
+        <section className=" py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <Contact />
+          </div>
+        </section>
       </section>
       {/* Footer */}
       <Footer />
