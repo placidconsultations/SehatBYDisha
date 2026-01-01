@@ -6,6 +6,8 @@ import Background from '../../components/Background';
 import Footer from '../../components/Footer';
 import { FaArrowLeft, FaCalendarAlt, FaUser } from 'react-icons/fa';
 import Blogs from './Blogs.jsx';
+import { BlogDetailsSkeleton } from '../../components/SkeletonLoader';
+import ImageWithLoader from '../../components/ImageWithLoader';
 
 const BlogDetails = () => {
   const { id } = useParams();
@@ -31,8 +33,16 @@ const BlogDetails = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-[var(--color-green)]"></div>
+      <div className="min-h-screen flex flex-col">
+        <Background>
+          <Navbar />
+          <main className="flex-grow pt-16 mb-16">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+              <BlogDetailsSkeleton />
+            </div>
+          </main>
+          <Footer />
+        </Background>
       </div>
     );
   }
@@ -72,7 +82,7 @@ const BlogDetails = () => {
                 {/* Image Section - Left - Sticky */}
                 {blog.imageUrl && (
                   <div className="lg:w-1/2 lg:sticky lg:top-16 h-[400px] lg:h-[calc(100vh-8rem)] overflow-hidden">
-                    <img
+                    <ImageWithLoader
                       src={blog.imageUrl}
                       alt={blog.title}
                       className="w-full h-full object-cover"

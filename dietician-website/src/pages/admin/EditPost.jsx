@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import RichTextEditor from '../../components/RichTextEditor';
 import { getBlogById, updateBlog } from '../../firebase/blogService';
+import Background from '../../components/Background';
 
 const EditPost = () => {
   const { id } = useParams();
@@ -65,135 +66,172 @@ const EditPost = () => {
 
   if (isLoading) {
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className="container mx-auto px-4 py-8 max-w-4xl">
+        <div className="h-8 w-48 bg-gray-300 rounded mb-6 animate-pulse"></div>
+        <div className="space-y-6">
+          <div>
+            <div className="h-4 w-24 bg-gray-300 rounded mb-2 animate-pulse"></div>
+            <div className="h-10 w-full bg-gray-300 rounded animate-pulse"></div>
+          </div>
+          <div>
+            <div className="h-4 w-24 bg-gray-300 rounded mb-2 animate-pulse"></div>
+            <div className="h-10 w-full bg-gray-300 rounded animate-pulse"></div>
+          </div>
+          <div>
+            <div className="h-4 w-24 bg-gray-300 rounded mb-2 animate-pulse"></div>
+            <div className="h-24 w-full bg-gray-300 rounded animate-pulse"></div>
+          </div>
+          <div>
+            <div className="h-4 w-32 bg-gray-300 rounded mb-2 animate-pulse"></div>
+            <div className="h-64 w-full bg-gray-300 rounded animate-pulse"></div>
+          </div>
+        </div>
       </div>
     );
   }
 
-  return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
-      <h1 className="text-2xl font-bold mb-6">Edit Blog Post</h1>
-      
-      {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-          {error}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
+  return(
+  <Background>
+    <div className="max-w-3xl mx-auto mt-6 sm:mt-12 bg-gradient-to-tr from-orange-50 via-orange-100 to-white px-4 py-6 sm:p-10 rounded-2xl shadow-2xl relative">
+      <div className="absolute -top-5 left-0 w-full flex justify-center pointer-events-none select-none z-10">
+        <span className="inline-block px-4 sm:px-8 py-2 bg-orange-600 text-white rounded-full shadow-lg text-base sm:text-lg font-bold tracking-wider uppercase">
+          Edit Blog Post
+        </span>
+      </div>
+      <form
+        onSubmit={handleSubmit}
+        className="space-y-6 sm:space-y-8 mt-8"
+        autoComplete="off"
+        spellCheck="false"
+      >
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-            Title *
+          <label
+            className="block text-gray-700 font-semibold mb-1 sm:mb-2 tracking-wide"
+            htmlFor="title"
+          >
+            Title <span className="text-red-500">*</span>
           </label>
           <input
-            type="text"
             id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-            required
-          />
-        </div>
-
-        <div>
-          <label htmlFor="author" className="block text-sm font-medium text-gray-700 mb-1">
-            Author *
-          </label>
-          <input
             type="text"
-            id="author"
-            value={author}
-            onChange={(e) => setAuthor(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4"
+            value={title}
+            onChange={e => setTitle(e.target.value)}
+            className="w-full border border-orange-200 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 bg-white focus:border-orange-500 focus:ring-2 focus:ring-orange-200 outline-none transition text-sm"
+            placeholder="Enter post title"
             required
           />
         </div>
-
+        <div className="flex flex-col sm:flex-row gap-4">
+          <div className="flex-1">
+            <label
+              className="block text-gray-700 font-semibold mb-1 sm:mb-2 tracking-wide"
+              htmlFor="author"
+            >
+              Author
+            </label>
+            <input
+              id="author"
+              type="text"
+              value={author}
+              onChange={e => setAuthor(e.target.value)}
+              className="w-full border border-orange-100 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none transition text-sm"
+              placeholder="Author name (optional, defaults to Admin)"
+            />
+          </div>
+          <div className="flex-1">
+            <label
+              className="block text-gray-700 font-semibold mb-1 sm:mb-2 tracking-wide"
+              htmlFor="imageUrl"
+            >
+              Image URL <span className="text-red-500">*</span>
+            </label>
+            <input
+              id="imageUrl"
+              type="text"
+              value={imageUrl}
+              onChange={e => setImageUrl(e.target.value)}
+              className="w-full border border-orange-100 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none transition text-sm"
+              placeholder="https://your-image-link"
+              required
+            />
+          </div>
+        </div>
+        {imageUrl && (
+          <div className="flex flex-col items-center">
+            <img
+              src={imageUrl}
+              alt="Blog header preview"
+              className="mt-3 mb-1 max-h-40 w-full sm:w-auto object-contain rounded-xl shadow border border-orange-100 transition-all duration-150"
+              onError={e => (e.target.style.display = 'none')}
+            />
+            <span className="text-xs text-gray-400 break-words max-w-full">Image Preview</span>
+          </div>
+        )}
         <div>
-          <label htmlFor="excerpt" className="block text-sm font-medium text-gray-700 mb-1">
-            Excerpt
+          <label
+            className="block text-gray-700 font-semibold mb-1 sm:mb-2 tracking-wide"
+            htmlFor="excerpt"
+          >
+            Excerpt <span className="text-red-500">*</span>
           </label>
           <textarea
             id="excerpt"
             value={excerpt}
-            onChange={(e) => setExcerpt(e.target.value)}
-            rows="3"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+            onChange={e => setExcerpt(e.target.value)}
+            className="w-full border border-orange-100 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 bg-white focus:border-orange-400 focus:ring-2 focus:ring-orange-100 outline-none transition text-sm"
+            placeholder="Brief summary or excerpt... (visible on preview cards)"
+            required
+            rows={3}
           />
         </div>
-
         <div>
-          <div className="flex justify-between items-center mb-1">
-            <label htmlFor="imageUrl" className="block text-sm font-medium text-gray-700">
-              Featured Image URL
-            </label>
-          </div>
-          <div className="flex space-x-2">
-            <input
-              type="url"
-              id="imageUrl"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
-              placeholder="Paste image URL here"
-              className="flex-1 min-w-0 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            />
-            {imageUrl && <button
-              type="button"
-              onClick={() => setImageUrl('')}
-              className="px-3 py-2 bg-gray-100 hover:bg-red-500 hover:text-white text-gray-700 rounded-md border border-gray-300 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-            >
-              Remove Image
-            </button>}
-          </div>
-          {imageUrl && (
-            <div className="mt-3">
-              <p className="text-sm text-gray-500 mb-1">Image Preview:</p>
-              <div className="relative bg-gray-100 rounded-md overflow-hidden border border-gray-200">
-                <img 
-                  src={imageUrl} 
-                  alt="Preview" 
-                  className="max-h-60 w-full object-contain p-2"
-                  onError={(e) => {
-                    e.target.src = 'https://via.placeholder.com/600x400?text=Image+not+found';
-                    e.target.className = 'max-h-60 w-full object-cover p-2';
-                  }}
-                />
-              </div>
-              <p className="mt-1 text-xs text-gray-500 break-all">{imageUrl}</p>
-            </div>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Content *
+          <label
+            className="block text-gray-700 font-semibold mb-1 sm:mb-2 tracking-wide"
+            htmlFor="content"
+          >
+            Content <span className="text-red-500">*</span>
           </label>
-          <RichTextEditor
-            value={content}
-            onChange={handleContentChange}
-            placeholder="Write your blog post content here..."
-          />
+          <div className="bg-white border border-orange-100 rounded-xl shadow-sm px-2 py-1.5 sm:px-2 sm:py-2 focus-within:ring-2 focus-within:ring-orange-200 transition">
+            <RichTextEditor value={content} onChange={handleContentChange} placeholder={'Write Content Here...'} />
+          </div>
         </div>
 
-        <div className="flex justify-end space-x-4 pt-4">
+        {error && (
+          <div className="rounded bg-red-100 border border-red-400 px-4 py-2 text-red-700 text-center font-medium shadow text-sm">
+            {error}
+          </div>
+        )}
+
+        <div className="flex flex-col-reverse sm:flex-row sm:justify-end gap-3">
           <button
             type="button"
             onClick={() => navigate(-1)}
-            className="px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+            className="bg-white border border-orange-200 text-orange-600 hover:bg-orange-50 focus:ring-2 focus:ring-orange-300 font-bold px-6 sm:px-8 py-2 sm:py-2.5 rounded-full shadow transition-all flex items-center justify-center text-sm"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={isUpdating}
-            className="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+            className="bg-orange-600 hover:bg-orange-700 focus:ring-2 focus:ring-orange-300 text-white font-bold px-6 sm:px-8 py-2 sm:py-2.5 rounded-full shadow-lg transition-all flex items-center justify-center disabled:opacity-60 disabled:pointer-events-none text-sm"
           >
-            {isUpdating ? 'Updating...' : 'Update Post'}
+            {isUpdating ? (
+              <span className="flex items-center gap-2">
+                <svg className="animate-spin h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-40" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                  <path className="opacity-90" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 01-4 4H4z" />
+                </svg>
+                Updating...
+              </span>
+            ) : (
+              <span>Update Post</span>
+            )}
           </button>
         </div>
       </form>
     </div>
+  </Background>
+    
   );
 };
 

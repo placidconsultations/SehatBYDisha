@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getBlogs } from '../../firebase/blogService.js';
+import { getBlogs, deleteBlog } from '../../firebase/blogService.js';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '../../firebase/firebase';
+import { FaEdit, FaTrash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import Background from '../../components/Background';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import Loader from '../../components/Loader';
+import { BlogCardSkeleton } from '../../components/SkeletonLoader';
+import ImageWithLoader from '../../components/ImageWithLoader';
 
 const Blogs = ({ limit }) => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isAdmin, setIsAdmin] = useState(false);
+  const [deletingId, setDeletingId] = useState(null);
+
+  // Check if user is authenticated (admin)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAdmin(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -26,10 +44,40 @@ const Blogs = ({ limit }) => {
     fetchBlogs();
   }, []);
 
+  const handleDelete = async (blogId, blogTitle) => {
+    if (!window.confirm(`Are you sure you want to delete "${blogTitle}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    setDeletingId(blogId);
+    try {
+      await deleteBlog(blogId);
+      toast.success('Blog post deleted successfully');
+      // Remove the blog from the list
+      setBlogs(blogs.filter(blog => blog.id !== blogId));
+    } catch (err) {
+      console.error('Error deleting blog:', err);
+      toast.error('Failed to delete blog post. Please try again.');
+    } finally {
+      setDeletingId(null);
+    }
+  };
+
   if (loading) {
+    const skeletonCount = limit || 6;
     return (
-      <div className="flex justify-center items-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+      <div className={`container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${!limit ? 'pt-26 pb-8' : 'py-8'}`}>
+        {!limit && (
+          <div className="text-center mb-8 sm:mb-12 md:mb-16">
+            <div className="h-10 w-48 bg-gray-300 rounded mx-auto mb-4 animate-pulse"></div>
+            <div className="h-6 w-96 bg-gray-300 rounded mx-auto animate-pulse"></div>
+          </div>
+        )}
+        <div className={`grid grid-cols-1 md:grid-cols-2 ${!limit ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-8`}>
+          {Array.from({ length: skeletonCount }).map((_, index) => (
+            <BlogCardSkeleton key={index} />
+          ))}
+        </div>
       </div>
     );
   }
@@ -72,13 +120,42 @@ const Blogs = ({ limit }) => {
       ) : (
         <div className={`grid grid-cols-1 md:grid-cols-2 ${!limit ? 'lg:grid-cols-4' : 'lg:grid-cols-3'} gap-8`}>
           {blogs.slice(0, limit || blogs.length).map((blog) => (
-            <div key={blog.id} className="bg-white shadow-md overflow-hidden hover:shadow-sm transition-shadow duration-300">
+            <div key={blog.id} className="bg-white shadow-md overflow-hidden hover:shadow-sm transition-shadow duration-300 relative">
+              {/* Admin Actions - Edit & Delete Icons */}
+              {isAdmin && (
+                <div className="absolute top-2 right-2 z-10 flex gap-2">
+                  <Link
+                    to={`/admin/posts/edit/${blog.id}`}
+                    className="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-[var(--color-green)] hover:text-white transition-all duration-200 group"
+                    title="Edit blog post"
+                  >
+                    <FaEdit className="w-4 h-4 text-gray-700 group-hover:text-white" />
+                  </Link>
+                  <button
+                    onClick={() => handleDelete(blog.id, blog.title)}
+                    disabled={deletingId === blog.id}
+                    className="bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-md hover:bg-red-500 hover:text-white transition-all duration-200 group disabled:opacity-50 disabled:cursor-not-allowed"
+                    title="Delete blog post"
+                  >
+                    {deletingId === blog.id ? (
+                      <svg className="animate-spin w-4 h-4 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                    ) : (
+                      <FaTrash className="w-4 h-4 text-gray-700 group-hover:text-white" />
+                    )}
+                  </button>
+                </div>
+              )}
               {blog.imageUrl && (
-                <img 
-                  src={blog.imageUrl} 
-                  alt={blog.title}  
-                  className="w-full h-48 object-cover"
-                />
+                <div className="w-full h-48 overflow-hidden">
+                  <ImageWithLoader 
+                    src={blog.imageUrl} 
+                    alt={blog.title}  
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               )}
               <div className="p-6">
                 <div className="flex justify-between items-center mb-2">

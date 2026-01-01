@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { FaBars, FaTimes, FaUserAlt } from 'react-icons/fa';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaBars, FaTimes, FaUserAlt, FaSignOutAlt, FaTachometerAlt } from 'react-icons/fa';
 import { FaBowlFood } from 'react-icons/fa6';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
+import { auth } from '../firebase/firebase';
+import { toast } from 'react-toastify';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  // Check if user is authenticated (admin)
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      setIsAdmin(!!user);
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   // Close mobile menu when route changes
   useEffect(() => {
@@ -27,14 +41,24 @@ const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      toast.success('Logged out successfully');
+      navigate('/');
+      setIsOpen(false);
+    } catch (error) {
+      console.error('Logout error:', error);
+      toast.error('Failed to log out');
+    }
+  };
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Services', path: '/services' },
-    {name: 'Plans', path: '/plans'},
     { name: 'About', path: '/about' },
     { name: 'Blog', path: '/blogs' },
     { name: 'Contact', path: '/contact' },
-
   ];
 
   return (
@@ -78,14 +102,35 @@ const Navbar = () => {
                   }`}></span>
                 </Link>
               ))}
-              {/* <Link
-                to="/appointment"
-                className="ml-4 px-5 py-2.5 rounded-lg text-sm font-medium text-white bg-[var(--color-green)] hover:bg-[var(--color-darkGreen)] transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[var(--color-green)]/20"
-              >
-                <div className="flex items-center">
-                  <span>Book Appointment</span>
-                </div>
-              </Link> */}
+              
+              {/* Admin Dashboard Link */}
+              {isAdmin && (
+                <Link
+                  to="/admin/dashboard"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium relative group overflow-hidden transition-all duration-300 flex items-center gap-2 ${
+                    location.pathname === '/admin/dashboard'
+                      ? 'text-[var(--color-green)] font-semibold'
+                      : 'text-[var(--color-darkGray)] hover:text-[var(--color-green)]'
+                  }`}
+                >
+                  Dashboard
+                  <span className={`absolute bottom-0 left-0 w-0 h-0.5 bg-[var(--color-green)] transition-all duration-300 group-hover:w-full ${
+                    location.pathname === '/admin/dashboard' ? 'w-full' : ''
+                  }`}></span>
+                </Link>
+              )}
+
+              {/* Logout Button */}
+              {isAdmin && (
+                <button
+                  onClick={handleLogout}
+                  className="ml-2 px-4 py-2 rounded-lg text-sm font-medium text-white bg-red-500 hover:bg-red-600 transition-all duration-300 flex items-center gap-2 shadow-md hover:shadow-lg"
+                  title="Logout"
+                >
+                  <FaSignOutAlt className="w-4 h-4" />
+                  <span className="hidden lg:inline">Logout</span>
+                </button>
+              )}
             </div>
           </div>
 
@@ -131,12 +176,31 @@ const Navbar = () => {
               {link.name}
             </Link>
           ))}
-          {/* <Link
-            to="/appointment"
-            className="mt-2 block w-full px-4 py-3 text-center rounded-lg text-base font-medium text-white bg-[var(--color-green)] hover:bg-[var(--color-darkGreen)] transition-all duration-300 shadow-md"
-          >
-            Book Appointment
-          </Link> */}
+          
+          {/* Admin Dashboard Link - Mobile */}
+          {isAdmin && (
+            <Link
+              to="/admin/dashboard"
+              className={`block px-4 py-3 rounded-lg text-base font-medium transition-colors duration-300 flex items-center gap-2 ${
+                location.pathname === '/admin/dashboard'
+                  ? 'bg-[var(--color-green)]/10 text-[var(--color-green)] font-semibold'
+                  : 'text-[var(--color-darkGray)] hover:bg-gray-50'
+              }`}
+            >
+              Dashboard
+            </Link>
+          )}
+
+          {/* Logout Button - Mobile */}
+          {isAdmin && (
+            <button
+              onClick={handleLogout}
+              className="w-full mt-2 px-4 py-3 rounded-lg text-base font-medium text-white bg-red-500 hover:bg-red-600 transition-all duration-300 flex items-center justify-center gap-2 shadow-md"
+            >
+              <FaSignOutAlt className="w-4 h-4" />
+              Logout
+            </button>
+          )}
         </div>
       </div>
     </nav>

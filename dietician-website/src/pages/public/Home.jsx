@@ -4,10 +4,11 @@ import Background from '../../components/Background';
 import Navbar from '../../components/Navbar';
 import { WhyChooseUs } from '../../components/WhyChooseUs';
 import Footer from '../../components/Footer';
-import PricingPage from './PricingPage';
 import TestimonialTicker from '../../components/TestimonialTicker';
 import Blogs from './Blogs';
 import Contact from './Contact';
+import ImageWithLoader from '../../components/ImageWithLoader';
+import TransformationTicker from '../../components/Transformation';
 
 const Home = () => {
   return (
@@ -48,7 +49,7 @@ const Home = () => {
                 <div className="relative w-64 h-64 sm:w-80 sm:h-80">
                   <div className="absolute inset-0 bg-[var(--color-green)] rounded-full opacity-20 blur-lg -z-10 transition-default"></div>
                   <div className="relative w-full h-full overflow-hidden rounded-full border-4 border-white shadow-2xl">
-                    <img
+                    <ImageWithLoader
                       src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                       alt="Happy client"
                       className="w-full h-full object-cover"
@@ -110,7 +111,7 @@ const Home = () => {
               <div className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 mx-auto">
                 <div className="absolute inset-0 bg-[var(--color-green)] rounded-full opacity-20 blur-lg -z-10 transition-default"></div>
                 <div className="relative w-full h-full overflow-hidden rounded-full border-4 border-white shadow-2xl">
-                  <img
+                  <ImageWithLoader
                     src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                     alt="Happy client"
                     className="w-full h-full object-cover"
@@ -125,13 +126,13 @@ const Home = () => {
         {/* About Me Section */}
         <section className="mt-10 py-16 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center">
+            <div className="flex flex-col md:flex-row items-center gap-6">
               {/* Image Column */}
               <div className="w-full md:w-5/12 lg:w-1/3 mb-10 md:mb-0 md:pr-12">
                 <div className="relative w-64 h-80 sm:w-80 sm:h-96 mx-auto">
                   <div className="absolute inset-0 bg-[var(--color-green)] rounded-2xl opacity-40 -z-10 transform rotate-4"></div>
                   <div className="relative w-full h-full overflow-hidden rounded-2xl border-4 border-white shadow-xl">
-                    <img
+                    <ImageWithLoader
                       src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
                       alt="Disha - Your Dietitian"
                       className="w-full h-full object-cover"
@@ -195,6 +196,22 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Youtube Video */}
+        <section className="py-16 bg-transparent">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl font-bold text-[var(--color-darkGray)] sm:text-3xl md:text-4xl">Watch Our <span className="text-[var(--color-green)]">Video</span></h2>
+              <div className="h-1 w-16 bg-[var(--color-green)] rounded-lg mx-auto mb-3"></div>
+              <p className="text-sm text-[var(--color-darkGrayish)] sm:text-base md:text-base max-w-2xl mx-auto"> Learn more about our approach to nutrition and wellness</p>
+            </div>
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
+              <iframe className="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/p9J9cS1upRw"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerPolicy="strict-origin-when-cross-origin" allowFullScreen></iframe>
+            </div>
+          </div>
+        </section>
         {/* Why to choose us */}
         <section className="mt-10 py-16 bg-transparent">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -303,17 +320,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Plans */}
-        <section className="py-2">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <PricingPage/>
-          </div>
-        </section>
-
         {/* Testimonials */}
         <section className="py-10">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8"></div>
-        <TestimonialTicker />
+          <TestimonialTicker />
+          <TransformationTicker />
         </section>
 
 
@@ -330,7 +341,7 @@ const Home = () => {
             </div>
             <Blogs limit={3} />
             <div className="mt-10 text-center">
-              <Link 
+              <Link
                 to="/blogs"
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-[var(--color-green)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
               >
