@@ -25,7 +25,7 @@ const TransformationCard = ({ image, name, lostWeight, duration }) => (
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.1 }}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-green)]/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-green)]/30 to-transparent" />
       <div className="p-3 sm:p-4 md:p-5 flex-1 flex items-center">
         <p className="text-sm sm:text-base text-gray-700 text-center leading-relaxed">
           Our beloved client <span className="font-semibold text-gray-900">{name}</span> lost
@@ -64,10 +64,9 @@ const TransformationTicker = () => {
         </div>
         <Ticker 
           items={[...transformations].reverse()} 
-          duration={60} 
+          duration={25} 
           reverse 
           cardComponent={TransformationCard}
-          /* This adds the gap ONLY to this ticker */
           itemClassName="px-4 sm:px-6 md:px-8" 
         />
       </div>

@@ -74,7 +74,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link to="/" className="flex items-center group">
-              <div className="bg-[var(--color-green)] p-2 rounded-lg group-hover:rotate-12 transition-transform duration-300">
+              <div className="bg-[var(--color-green)] p-2 rounded-lg group-hover:rotate-[360deg] transition-transform duration-600">
                 <FaBowlFood className="h-6 w-6 md:h-7 md:w-7 text-white" />
               </div>
               <span className="ml-3 text-xl md:text-2xl font-bold text-[var(--color-darkGray)]">

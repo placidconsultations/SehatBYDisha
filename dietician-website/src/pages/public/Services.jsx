@@ -1,204 +1,272 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Background from '../../components/Background';
 import Navbar from '../../components/Navbar';
-
-const services = [
-  {
-    id: 1,
-    title: "Personalized Diet Plans",
-    description: "Custom nutrition plans based on lifestyle, preferences, allergies, and health goals",
-    icon: "🥗",
-    features: [
-      "Customized meal planning",
-      "Weekly check-ins and modifications",
-      "Allergy-friendly options",
-      "Lifestyle integration"
-    ]
-  },
-  {
-    id: 2,
-    title: "Weight Management",
-    description: "Sustainable approaches to achieving and maintaining a healthy weight",
-    icon: "⚖️",
-    features: [
-      "Sustainable calorie planning",
-      "Fat-loss meal plans",
-      "Progress tracking",
-      "Behavioral strategies"
-    ]
-  },
-  {
-    id: 3,
-    title: "Medical Nutrition Therapy",
-    description: "Specialized nutrition plans for various health conditions",
-    icon: "🏥",
-    features: [
-      "Diabetes management",
-      "PCOS/PCOD nutrition",
-      "Thyroid management",
-      "Heart health plans",
-      "Cholesterol control",
-      "Hypertension diet"
-    ]
-  },
-  {
-    id: 4,
-    title: "Sports & Performance",
-    description: "Nutrition plans to enhance athletic performance",
-    icon: "🏋️",
-    features: [
-      "Athlete meal planning",
-      "Muscle gain strategies",
-      "Workout nutrition timing",
-      "Recovery meals"
-    ]
-  },
-  {
-    id: 5,
-    title: "Child & Teen Nutrition",
-    description: "Healthy eating for growth and development",
-    icon: "👶",
-    features: [
-      "Growth-focused diet plans",
-      "Balanced meal guidelines",
-      "Healthy habits building",
-      "School lunch ideas"
-    ]
-  },
-  {
-    id: 6,
-    title: "Pregnancy & Postpartum",
-    description: "Nutrition for mother and baby's health",
-    icon: "🤰",
-    features: [
-      "Pre-natal health plans",
-      "Post-delivery recovery",
-      "Breastfeeding nutrition",
-      "Healthy weight management"
-    ]
-  },
-  {
-    id: 7,
-    title: "Clinical Diet Counselling",
-    description: "Professional guidance for specific health needs",
-    icon: "💊",
-    features: [
-      "One-on-one consultation",
-      "Nutrition deficiency guidance",
-      "Food intolerance advice",
-      "Medical condition support"
-    ]
-  },
-  {
-    id: 8,
-    title: "Lifestyle Coaching",
-    description: "Building sustainable healthy habits",
-    icon: "🧠",
-    features: [
-      "Behavior change strategies",
-      "Healthy eating routines",
-      "Sleep optimization",
-      "Hydration guidance"
-    ]
-  },
-  {
-    id: 9,
-    title: "Detox & Wellness",
-    description: "Programs for body cleansing and immunity",
-    icon: "🌿",
-    features: [
-      "7/14-day detox programs",
-      "Immunity boosting diets",
-      "Gut health improvement",
-      "Energy enhancement"
-    ]
-  },
-  {
-    id: 10,
-    title: "Corporate Wellness",
-    description: "Workplace health and wellness programs",
-    icon: "🏢",
-    features: [
-      "Employee diet workshops",
-      "Meal planning guides",
-      "Health coaching",
-      "Team challenges"
-    ]
-  }
-];
+import Loader from '../../components/Loader';
+import PlansCard from '../../components/PlansCard';
+import ServicesCard from '../../components/ServicesCard';
+import { getPlans, getServices } from '../../firebase/planServices';
+import { toast } from 'react-toastify';
+import Footer from '../../components/Footer';
 
 const Services = () => {
-  return (
-        <Background>
+  const [plans, setPlans] = useState([]);
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedPlan, setSelectedPlan] = useState(null);
+  const [showPlanDetails, setShowPlanDetails] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [plansData, servicesData] = await Promise.all([
+          getPlans(),
+          getServices()
+        ]);
+
+        const sortedPlans = plansData.sort((a, b) => {
+          if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+
+        const sortedServices = servicesData.sort((a, b) => {
+          if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+          return new Date(b.createdAt) - new Date(a.createdAt);
+        });
+
+        setPlans(sortedPlans);
+        setServices(sortedServices);
+      } catch (error) {
+        console.error(error);
+        toast.error('Failed to load services and plans');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const categories = [
+    { id: 'all', name: 'All Plans', icon: '🚀' },
+    { id: 'personalized', name: 'Personalized Plans', icon: '🥗' },
+    { id: 'condition', name: 'Condition-Specific', icon: '🩺' },
+    { id: 'quick', name: 'Quick Plans', icon: '⚡' }
+  ];
+
+  const filteredPlans =
+    selectedCategory === 'all'
+      ? plans
+      : plans.filter(plan => plan.category === selectedCategory);
+
+  const searchedPlans = filteredPlans.filter(plan => {
+    const q = searchQuery.toLowerCase();
+    return (
+      plan.title?.toLowerCase().includes(q) ||
+      plan.description?.toLowerCase().includes(q) ||
+      plan.category?.toLowerCase().includes(q) ||
+      plan.features?.some(f => f.toLowerCase().includes(q)) ||
+      plan.recommended?.toLowerCase().includes(q)
+    );
+  });
+
+  const searchedServices = services.filter(service => {
+    const q = searchQuery.toLowerCase();
+    return (
+      service.title?.toLowerCase().includes(q) ||
+      service.description?.toLowerCase().includes(q)
+    );
+  });
+
+  // ✅ visible data (FIXED LOGIC)
+  const visiblePlans = searchedPlans;
+  const visibleServices =
+    selectedCategory === 'all' || selectedCategory === 'condition'
+      ? searchedServices
+      : [];
+
+  const handlePlanClick = (plan) => {
+    setSelectedPlan(plan);
+    setShowPlanDetails(true);
+  };
+
+  const closePlanDetails = () => {
+    setSelectedPlan(null);
+    setShowPlanDetails(false);
+  };
+
+  if (loading) {
+    return (
+      <Background>
         <Navbar />
-    <div className="min-h-screen bg-transparent pt-24 pb-16">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Hero Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-[var(--color-darkGray)] mb-4">
-            Our Services
-          </h1>
-          <div className="w-24 h-1 bg-[var(--color-green)] mx-auto mb-6"></div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive nutrition and wellness services tailored to your unique needs and goals.
-          </p>
+        <div className="min-h-screen pt-24 flex items-center justify-center">
+          <Loader fullScreen text="Loading services..." />
         </div>
+        <Footer />
+      </Background>
+    );
+  }
 
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {services.map((service) => (
-            <div 
-              key={service.id}
-              className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-shadow duration-300"
-            >
-              <div className="p-2 bg-[var(--color-green)] text-white text-4xl text-center">
-                {service.icon}
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-[var(--color-darkGray)] mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-gray-600 mb-4">{service.description}</p>
-                <ul className="space-y-2 mb-6">
-                  {service.features.map((feature, index) => (
-                    <li key={index} className="flex items-start">
-                      <span className="flex-shrink-0 w-2 h-2 mt-2 mr-2 rounded-full bg-[var(--color-green)]"></span>
-                      <span className="text-gray-700">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to="/appointment"
-                  className="inline-block px-4 py-2 text-sm font-medium text-white bg-[var(--color-green)] rounded-md hover:bg-[var(--color-darkGreen)] transition-colors"
+  return (
+    <Background>
+      <Navbar />
+
+      <div className="min-h-screen pt-24 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+          {/* HERO */}
+          <div className="text-center mb-10">
+            <h1 className="text-3xl md:text-4xl font-bold mb-2">
+              My Diet & <span className="text-[var(--color-green)]">Wellness Programs</span>
+            </h1>
+            <div className="w-36 h-1 bg-black mx-auto mb-2"></div>
+            <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto">
+              Transform your health with personalized nutrition plans designed for your unique body and lifestyle
+            </p>
+          </div>
+
+          {/* CATEGORY FILTER */}
+          <div className="mb-6 flex justify-center">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 p-1 rounded-full bg-gray-50 w-full max-w-4xl">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setSelectedCategory(category.id)}
+                  aria-pressed={selectedCategory === category.id}
+                  className={`flex items-center justify-center tracking-tight px-2 py-1.5 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm transition-all duration-200 
+                    ${selectedCategory === category.id
+                      ? 'bg-[var(--color-green)] font-bold text-white shadow-sm border border-black '
+                      : 'text-gray-600 hover:text-[var(--color-green)] font-medium border border-[var(--color-green)] hover:bg-gray-100 hover:scale-105 hover:shadow-md cursor-pointer'}`}
                 >
-                  Book Consultation
-                </Link>
-              </div>
+                  {category.icon}{category.name}
+                </button>
+              ))}
             </div>
-          ))}
-        </div>
+          </div>
 
-        {/* CTA Section */}
-        <div className="mt-16 text-center">
-          <h2 className="text-2xl font-bold text-[var(--color-darkGray)] mb-4">
-            Ready to transform your health?
-          </h2>
-          <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
-            Schedule a consultation today and take the first step towards a healthier, happier you.
-          </p>
-          <Link
-            to="/appointment"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-[var(--color-green)] hover:bg-[var(--color-darkGreen)] transition-colors"
-          >
-            Book Your Appointment Now
-            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </Link>
+          {/* SEARCH */}
+          <div className="mb-8 flex justify-center">
+            <input
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Search plans, services, features, or conditions..."
+              className="w-full max-w-2xl px-4 py-2 border-2 border-gray-400 rounded-xl focus:border-[var(--color-green)] focus:outline-none transition-colors duration-200 shadow-sm hover:shadow-md hover:border-[var(--color-green)]"
+            />
+          </div>
+
+          {/* RESULT COUNT */}
+          {searchQuery && (
+            <div className="text-center mb-6">
+              <p className="text-sm text-gray-500">
+                Found {visiblePlans.length + visibleServices.length} results for "{searchQuery}"
+              </p>
+            </div>
+          )}
+
+          {/* SECTION HEADING */}
+          {selectedCategory !== 'all' ? (
+            <div className="mb-8 text-center">
+              <h3 className="text-2xl font-bold mb-2">
+                {selectedCategory === 'personalized' && '🥗 Personalised Nutrition Plans'}
+                {selectedCategory === 'quick' && '⚡ Quick Health Programs'}
+                {selectedCategory === 'condition' && '🩺 Condition-Specific Programs'}
+              </h3>
+            </div>
+          ) : (
+            <div className="mb-8 text-center">
+              <h3 className="text-2xl font-bold mb-2">
+                🚀 All Services & Plans
+              </h3>
+            </div>
+          )}
+
+          {/* PLANS */}
+          <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ${selectedCategory === 'condition' ? 'mb-0' : 'mb-16'}`}>
+            {visiblePlans.map(plan => (
+              <PlansCard key={plan.id} plan={plan} onClick={handlePlanClick} />
+            ))}
+          </div>
+
+          {/* SERVICES */}
+          {(selectedCategory === 'all' || selectedCategory === 'condition') && (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+              {visibleServices.map(service => (
+                <ServicesCard key={service.id} service={service} />
+              ))}
+            </div>
+          )}
+
         </div>
       </div>
-    </div>
+
+      {/* Plan Details Modal */}
+      {showPlanDetails && selectedPlan && (
+        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-2 sm:p-4">
+          <div className="bg-white rounded-xl sm:rounded-2xl w-full max-w-2xl max-h-[95vh] sm:max-h-[90vh] overflow-y-auto shadow-2xl">
+            {/* Header */}
+            <div className="bg-gradient-to-r from-[var(--color-green)] to-[var(--color-green)]/70 p-4 sm:p-6 text-white sticky top-0 z-10">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h3 className="text-lg sm:text-2xl font-bold leading-snug mb-1"> {selectedPlan.title} </h3>
+                  {/* Price */}
+                  <div className="flex items-end gap-2">
+                    <span className="text-2xl sm:text-3xl font-bold"> ₹{selectedPlan.price} </span>
+                    {selectedPlan.originalPrice && (
+                      <span className="text-xs sm:text-sm line-through opacity-80">
+                        ₹{selectedPlan.originalPrice}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                {/* Close */}
+                <button
+                  onClick={closePlanDetails}
+                  className="p-2 rounded-full hover:bg-black/20 transition-colors cursor-pointer"
+                  aria-label="Close modal" >
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            {/* Body */}
+            <div className="p-4 sm:p-6 pb-28 sm:pb-6">
+              {/* Description */}
+              <p className="text-sm sm:text-base text-gray-600 mb-5 leading-relaxed"> {selectedPlan.description} </p>
+              {/* Features */}
+              <div className="mb-6 sm:mb-8">
+                <h4 className="font-semibold text-base sm:text-lg text-[var(--color-darkGray)] mb-3 sm:mb-4"> What You will get </h4>
+                <div className="space-y-3">
+                  {selectedPlan.features?.map((feature, index) => (
+                    <div key={index} className="flex items-start">
+                      <span className="w-5 h-5 mt-1 mr-3 rounded-full bg-[var(--color-green)] text-white flex items-center justify-center text-xs"> ✓ </span>
+                      <span className="text-sm sm:text-base text-gray-700"> {feature} </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              {/* Recommended */}
+              {selectedPlan.recommended && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4 mb-6">
+                  <p className="text-xs sm:text-sm text-yellow-800 font-medium"> ⭐ Recommended for: {selectedPlan.recommended} </p>
+                </div>
+              )}
+            </div>
+            {/* Mobile Sticky CTA */}
+            <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-20">
+              <Link to="/appointment" onClick={closePlanDetails} className="block w-full px-6 py-3 bg-[var(--color-green)] text-white rounded-lg text-center font-medium hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all" > Book This Plan </Link>
+            </div>
+            {/* Desktop Actions */}
+            <div className="hidden sm:flex gap-4 px-6 pb-6">
+              <Link to="/appointment" onClick={closePlanDetails} className="flex-1 px-6 py-3 bg-[var(--color-green)] text-white rounded-lg hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all font-medium text-center" > Book This Plan </Link>
+              <button onClick={closePlanDetails} className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-red-300 transition-colors font-medium cursor-pointer" > Close </button>
+            </div>
+          </div>
+        </div>)}
+
+      <Footer />
     </Background>
   );
 };

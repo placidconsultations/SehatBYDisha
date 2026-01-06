@@ -17,6 +17,8 @@ import Contact from './pages/public/Contact';
 import AdminLogin from './pages/admin/AdminLogin';
 import Dashboard from './pages/admin/Dashboard';
 import ManageTestimonials from './pages/admin/ManageTestimonials';
+import ManagePlans from './pages/admin/ManagePlans';
+import AddPlan from './pages/admin/AddPlan';
 
 
 const App = () => {
@@ -77,6 +79,22 @@ const App = () => {
                     element={
                         <ProtectedRoute>
                             <ManageTestimonials />
+                        </ProtectedRoute>
+                    } 
+                />
+                <Route 
+                    path="/admin/plans" 
+                    element={
+                        <ProtectedRoute>
+                            <ManagePlans />
+                        </ProtectedRoute>
+                    } 
+                />
+                <Route 
+                    path="/admin/plans/new" 
+                    element={
+                        <ProtectedRoute>
+                            <AddPlan />
                         </ProtectedRoute>
                     } 
                 />

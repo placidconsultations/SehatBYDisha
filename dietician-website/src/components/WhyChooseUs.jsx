@@ -147,7 +147,7 @@ const DarkFeatureCard = () => (
       after:h-1 after:w-1 after:bg-white
       after:rounded-md after:-z-20 after:translate-y-full
       after:transition-all after:duration-700 hover:after:scale-[300]
-      hover:bg-[var(--color-green)] hover:text-[var(--color-green)]
+      hover:bg-[var(--color-green)] hover:text-[var(--color-green)] cursor-pointer
     ">
       View Plans →
     </button>

@@ -25,12 +25,15 @@ import Background from '../../components/Background';
 import Navbar from '../../components/Navbar';
 import Loader from '../../components/Loader';
 import ImageWithLoader from '../../components/ImageWithLoader';
+import { getPlans, getServices } from '../../firebase/planServices';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [blogs, setBlogs] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
   const [transformations, setTransformations] = useState([]);
+  const [plans, setPlans] = useState([]);
+  const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [deletingId, setDeletingId] = useState(null);
   const [stats, setStats] = useState({
@@ -47,15 +50,19 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchAllData = async () => {
       try {
-        const [blogsData, testimonialsData, transformationsData] = await Promise.all([
+        const [blogsData, testimonialsData, transformationsData, plansData, servicesData] = await Promise.all([
           getBlogs(),
           getTestimonials(),
-          getTransformations()
+          getTransformations(),
+          getPlans(),
+          getServices()
         ]);
 
         setBlogs(blogsData);
         setTestimonials(testimonialsData);
         setTransformations(transformationsData);
+        setPlans(plansData);
+        setServices(servicesData);
 
         // Calculate statistics
         const now = new Date();
@@ -102,7 +109,9 @@ const Dashboard = () => {
           totalTestimonials: testimonialsData.length,
           recentTestimonials: recentTestimonials.length,
           totalTransformations: transformationsData.length,
-          recentTransformations: recentTransformations.length
+          recentTransformations: recentTransformations.length,
+          totalPlans: plansData.length,
+          totalServices: servicesData.length
         });
       } catch (err) {
         console.error('Error fetching data:', err);

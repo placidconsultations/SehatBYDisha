@@ -2,7 +2,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Ticker = ({ items, duration = 50, reverse = false, cardComponent: Card, itemClassName = "px-1.5 sm:px-2 md:px-3" }) => {
+const Ticker = ({ items, duration = 40, reverse = false, cardComponent: Card, itemClassName = "px-1.5 sm:px-2 md:px-3" }) => {
   const animation = {
     x: reverse ? ['-100%', '0%'] : ['0%', '-100%'],
     transition: {
