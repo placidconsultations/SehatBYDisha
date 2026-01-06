@@ -12,15 +12,6 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID
 };
 
-// const firebaseConfig = {
-//   apiKey: "AIzaSyB9Np_OH6DlaDihIy9-2UBRirNN7mrmGfU",
-//   authDomain: "dietition-f64d9.firebaseapp.com",
-//   projectId: "dietition-f64d9",
-//   storageBucket: "dietition-f64d9.firebasestorage.app",
-//   messagingSenderId: "853320152362",
-//   appId: "1:853320152362:web:634695755855bab0b75a53"
-// };
-
 // Initialize Firebase
 let app;
 let db;
