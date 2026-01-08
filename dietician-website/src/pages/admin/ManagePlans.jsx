@@ -8,7 +8,8 @@ import {
   FaCalendarAlt,
   FaListUl,
   FaTags,
-  FaSort
+  FaSort,
+  FaRupeeSign
 } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Background from '../../components/Background';
@@ -275,10 +276,10 @@ const ManagePlans = () => {
           
           {/* Header */}
           <div className="mb-8">
-            <h1 className="text-3xl font-bold text-[var(--color-darkGray)] mb-2">
+            <h1 className="text-xl sm:text-2xl md:text-4xl font-bold text-[var(--color-darkGray)] mb-2">
               Manage Plans & Services
             </h1>
-            <p className="text-gray-600">Manage your diet plans and nutrition services</p>
+            <p className="text-xs sm:text-md md:text-lg text-gray-600">Manage your diet plans and nutrition services</p>
           </div>
 
           {/* Tabs */}
@@ -289,7 +290,8 @@ const ManagePlans = () => {
                   setActiveTab('plans');
                   resetForm();
                 }}
-                className={`py-4 px-1 border-b-2 font-medium text-xs sm:text-sm transition-colors ${
+                className={`py-4
+                   px-1 border-b-2 font-medium text-xs sm:text-sm transition-colors ${
                   activeTab === 'plans'
                     ? 'border-[var(--color-green)] text-[var(--color-green)]'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
@@ -706,7 +708,7 @@ const ManagePlans = () => {
                   <div key={item.id} className="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
                     <div className="flex gap-4">
                       {/* Icon */}
-                      <div className="flex-shrink-0 w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-2xl sm:text-3xl">
+                      <div className="flex-shrink-0 hidden sm:block w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-2xl sm:text-3xl">
                         {activeTab === 'plans' ? (item.icon || '🥗') : (item.icon || '🩺')}
                       </div>
 
@@ -714,21 +716,21 @@ const ManagePlans = () => {
                       <div className="flex-1 min-w-0">
                         <div className="flex items-start justify-between">
                           <div className="flex-1">
-                            <h3 className="text-sm sm:text-lg font-semibold text-gray-900">{item.title}</h3>
+                            <h3 className="text-xs sm:text-sm md:text-lg font-semibold text-gray-900">{item.title}</h3>
                             {activeTab === 'plans' ? (
                               <>
-                                <p className="text-xs sm:text-sm text-gray-600 mt-1">{item.description}</p>
-                                <div className="flex items-center gap-4 mt-2 text-xs sm:text-sm text-gray-600">
+                                <p className="text-[10px] sm:text-sm text-gray-600 mt-1">{item.description}</p>
+                                <div className="flex items-center gap-4 mt-2 text-[10px] xs:text-sm sm:text-sm text-gray-600">
                                   <span className="flex items-center">
-                                    <FaDollarSign className="mr-1" />
-                                    ₹{item.price}
+                                    <FaRupeeSign className="mr-1" />
+                                    {item.price}
                                     {item.originalPrice && (
                                       <span className="ml-1 line-through text-gray-400">
-                                        ₹{item.originalPrice}
+                                        {item.originalPrice}
                                       </span>
                                     )}
                                   </span>
-                                  <span className="flex items-center">
+                                  <span className="flex items-center whitespace-nowrap">
                                     <FaCalendarAlt className="mr-1" />
                                     {item.duration}
                                   </span>
@@ -738,13 +740,13 @@ const ManagePlans = () => {
                                   </span>
                                 </div>
                                 {item.popular && (
-                                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 mt-2">
+                                  <span className="inline-flex items-center px-2 py-1 rounded-full text-[10px] font-medium bg-yellow-100 text-yellow-800 mt-2">
                                     <FaStar className="mr-1" />
                                     Popular
                                   </span>
                                 )}
                                 {item.recommended && (
-                                  <p className="text-xs text-gray-500 mt-1">
+                                  <p className="text-[11px] text-gray-500 mt-1">
                                     Recommended: {item.recommended}
                                   </p>
                                 )}
@@ -753,13 +755,13 @@ const ManagePlans = () => {
                                     <p className="text-xs text-gray-500 mb-1">Features:</p>
                                     <div className="flex flex-wrap gap-1">
                                       {item.features.slice(0, 3).map((feature, idx) => (
-                                        <span key={idx} className="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-100 text-gray-700">
+                                        <span key={idx} className="inline-flex items-center px-2 py-1 rounded text-[10px] bg-gray-100 text-gray-700">
                                           <FaListUl className="mr-1" />
                                           {feature}
                                         </span>
                                       ))}
                                       {item.features.length > 3 && (
-                                        <span className="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-100 text-gray-700">
+                                        <span className="inline-flex items-center px-2 py-1 font-bold rounded text-[10px] bg-[var(--color-green)]/40 text-gray-700">
                                           +{item.features.length - 3} more
                                         </span>
                                       )}
@@ -776,7 +778,7 @@ const ManagePlans = () => {
                           <div className="flex items-center gap-1 sm:gap-2 ml-4">
                             <button
                               onClick={() => handleEdit(item)}
-                              className="p-1 text-gray-400 hover:text-[var(--color-green)] hover:bg-green-50 rounded transition-all"
+                              className="p-1 text-gray-400 hover:text-[var(--color-green)] hover:bg-green-50 rounded cursor-pointer transition-all"
                               title="Edit"
                             >
                               <FaEdit className="w-3 h-3 sm:w-4 sm:h-4" />
@@ -784,7 +786,7 @@ const ManagePlans = () => {
                             <button
                               onClick={() => handleDelete(item.id, item.title)}
                               disabled={deletingId === item.id}
-                              className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                              className="p-1 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded transition-all cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                               title="Delete"
                             >
                               {deletingId === item.id ? (

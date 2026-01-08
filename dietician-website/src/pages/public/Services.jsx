@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Background from '../../components/Background';
 import Navbar from '../../components/Navbar';
 import Loader from '../../components/Loader';
@@ -8,6 +7,7 @@ import ServicesCard from '../../components/ServicesCard';
 import { getPlans, getServices } from '../../firebase/planServices';
 import { toast } from 'react-toastify';
 import Footer from '../../components/Footer';
+import { handleBuyPlan } from '../../utils/paymentHandler.js';
 
 const Services = () => {
   const [plans, setPlans] = useState([]);
@@ -17,6 +17,7 @@ const Services = () => {
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [showPlanDetails, setShowPlanDetails] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [purchasedPlanIds, setPurchasedPlanIds] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -47,6 +48,18 @@ const Services = () => {
     };
 
     fetchData();
+
+    const storedData = localStorage.getItem('myPlans');
+    if (storedData) {
+        try {
+            const parsedData = JSON.parse(storedData);
+            // Extract just the IDs (e.g., ["O4OrZb...", "plan_2"])
+            const ids = parsedData.map(item => item.planId);
+            setPurchasedPlanIds(ids);
+        } catch (e) {
+            console.error("Error reading plans from local storage", e);
+        }
+    }
   }, []);
 
   const categories = [
@@ -95,6 +108,16 @@ const Services = () => {
   const closePlanDetails = () => {
     setSelectedPlan(null);
     setShowPlanDetails(false);
+  };
+
+  // check if plan is owned
+  const isPlanPurchased = (planId) => purchasedPlanIds.includes(planId);
+
+  // Handle successful payment
+  const onPaymentSuccess = (planId) => {
+    setPurchasedPlanIds(prev => [...prev, planId]);
+    toast.success('Plan purchased successfully!');
+    closePlanDetails();
   };
 
   if (loading) {
@@ -185,7 +208,13 @@ const Services = () => {
           {/* PLANS */}
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ${selectedCategory === 'condition' ? 'mb-0' : 'mb-16'}`}>
             {visiblePlans.map(plan => (
-              <PlansCard key={plan.id} plan={plan} onClick={handlePlanClick} />
+              <PlansCard 
+                key={plan.id} 
+                plan={plan} 
+                onClick={handlePlanClick} 
+                isPurchased={isPlanPurchased(plan.id)}
+                onPaymentSuccess={onPaymentSuccess}
+              />
             ))}
           </div>
 
@@ -256,11 +285,31 @@ const Services = () => {
             </div>
             {/* Mobile Sticky CTA */}
             <div className="sm:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-20">
-              <Link to="/appointment" onClick={closePlanDetails} className="block w-full px-6 py-3 bg-[var(--color-green)] text-white rounded-lg text-center font-medium hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all" > Book This Plan </Link>
+              <button
+                className="block w-full px-6 py-3 bg-[var(--color-green)] text-white rounded-lg text-center font-medium hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all"
+                onClick={() => {
+                  if (!isPlanPurchased(selectedPlan.id)) {
+                    handleBuyPlan(selectedPlan, { name: "App User", email: "user@example.com" }, onPaymentSuccess);
+                  }
+                }}
+                disabled={isPlanPurchased(selectedPlan.id)}
+              >
+                {isPlanPurchased(selectedPlan.id) ? 'Plan Active (Purchased)' : 'Book This Plan'}\
+              </button>
             </div>
             {/* Desktop Actions */}
             <div className="hidden sm:flex gap-4 px-6 pb-6">
-              <Link to="/appointment" onClick={closePlanDetails} className="flex-1 px-6 py-3 bg-[var(--color-green)] text-white rounded-lg hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all font-medium text-center" > Book This Plan </Link>
+              <button
+                className="flex-1 px-6 py-3 bg-[var(--color-green)] text-white rounded-lg hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all font-medium text-center cursor-pointer"
+                onClick={() => {
+                      if(!isPlanPurchased(selectedPlan.id)) {
+                          handleBuyPlan(selectedPlan, { name: "App User", email: "user@example.com" }, onPaymentSuccess);
+                      }
+                  }}
+                  disabled={isPlanPurchased(selectedPlan.id)}
+                >
+                  {isPlanPurchased(selectedPlan.id) ? 'Plan Active (Purchased)' : 'Book This Plan'}
+              </button>
               <button onClick={closePlanDetails} className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-red-300 transition-colors font-medium cursor-pointer" > Close </button>
             </div>
           </div>

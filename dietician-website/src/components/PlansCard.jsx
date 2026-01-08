@@ -1,12 +1,24 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { handleBuyPlan } from '../utils/paymentHandler'; // Adjust path if needed
 
-const PlansCard = ({ plan, onClick }) => {
-    const navigate = useNavigate();
+const PlansCard = ({ plan, onClick, isPurchased, onPaymentSuccess }) => {
+    
+    // Placeholder user details (Replace with real user context later)
+    const userDetails = {
+        name: "App User", 
+        email: "user@example.com"
+    };
+
+    const handleBookClick = (e) => {
+        e.stopPropagation(); // Prevent triggering the "View Details" onClick on the card container
+        
+        if (!isPurchased) {
+            handleBuyPlan(plan, userDetails, onPaymentSuccess);
+        }
+    };
+
     return (
-        <div
-            className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[var(--color-green)] group"
-        >
+        <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-200 hover:border-[var(--color-green)] group flex flex-col h-full">
             <div className="p-6 flex flex-col h-full">
 
                 {/* Header */}
@@ -25,7 +37,7 @@ const PlansCard = ({ plan, onClick }) => {
                 </h3>
 
                 {/* Description */}
-                <p className="text-sm text-gray-600 mb-4 leading-relaxed line-clamp-3">
+                <p className="text-sm text-gray-600 mb-4 leading-relaxed line-clamp-3 flex-grow">
                     {plan.description}
                 </p>
 
@@ -46,6 +58,7 @@ const PlansCard = ({ plan, onClick }) => {
                         </div>
                     )}
                 </div>
+
                 {plan.recommended && (
                     <div className="mb-4 px-3 py-2 bg-yellow-50 border-l-4 border-yellow-400 rounded">
                         <p className="text-xs text-yellow-800 font-medium">
@@ -54,46 +67,46 @@ const PlansCard = ({ plan, onClick }) => {
                     </div>
                 )}
 
-
-
-                {/* Original Price */}
-                <div className="flex items-end gap-2 mb-2">
-                    {plan.originalPrice && (
-                        <span className="text-sm line-through text-gray-400">
-                            ₹{plan.originalPrice}
+                {/* Price Section */}
+                <div className="mt-auto">
+                    <div className="flex items-end gap-2 mb-1">
+                        {plan.originalPrice && (
+                            <span className="text-sm line-through text-gray-400">
+                                ₹{plan.originalPrice}
+                            </span>
+                        )}
+                    </div>
+                    <div className="mb-4">
+                        <span className="text-2xl font-bold text-gray-900">
+                            ₹{plan.price}
                         </span>
-                    )}
-                </div>
-                {/* Current Price */}
-                <div className="mb-4 ">
-                    <span className="text-2xl font-bold text-gray-900">
-                        ₹{plan.price}
-                    </span>
-                    {plan.originalPrice && (
-                        <span className="block text-sm line-through text-gray-400">
-                            ₹{plan.originalPrice}
-                        </span>
-                    )}
+                    </div>
                 </div>
 
-                {/* Footer */}
-                <div className="mt-auto flex flex-row gap-2">
+                {/* Footer Buttons */}
+                <div className="grid grid-cols-2 gap-3 mt-auto">
+                    {/* View Details Button */}
                     <button
-                    onClick={() => onClick(plan)}
-                        className="w-full px-2 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm bg-[var(--color-green)] text-white rounded-lg 
+                        onClick={() => onClick(plan)}
+                        className="px-2 py-2 text-xs sm:text-sm bg-[var(--color-green)] text-white rounded-lg 
                        hover:bg-white hover:text-[var(--color-green)] 
                        border-2 border-transparent hover:border-[var(--color-green)] 
                        transition-all duration-200 font-medium cursor-pointer"
                     >
                         View Details
                     </button>
+
+                    {/* Book Now / Active Button */}
                     <button
-                    onClick={() => navigate(`/booking?plan=${plan.id}`)}
-                        className="w-full px-2 py-1.5 sm:px-4 sm:py-2 bg-white text-[var(--color-green)] border-[var(--color-green)] border-2 rounded-lg 
-                       hover:bg-[var(--color-green)] hover:text-white 
-                       transition-all duration-200 text-xs sm:text-sm font-medium cursor-pointer"
+                        onClick={handleBookClick}
+                        disabled={isPurchased}
+                        className={`px-2 py-2 text-xs sm:text-sm border-2 rounded-lg transition-all duration-200 font-medium cursor-pointer
+                            ${isPurchased 
+                                ? 'bg-gray-100 text-gray-500 border-gray-200 cursor-not-allowed' 
+                                : 'bg-white text-[var(--color-green)] border-[var(--color-green)] hover:bg-[var(--color-green)] hover:text-white'
+                            }`}
                     >
-                        Book This Plan
+                        {isPurchased ? 'Active' : 'Book Now'}
                     </button>
                 </div>
             </div>
