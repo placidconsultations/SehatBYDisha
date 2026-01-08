@@ -13,6 +13,7 @@ const Services = () => {
   const [plans, setPlans] = useState([]);
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [paymentLoading, setPaymentLoading] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedPlan, setSelectedPlan] = useState(null);
   const [showPlanDetails, setShowPlanDetails] = useState(false);
@@ -26,17 +27,17 @@ const Services = () => {
           getPlans(),
           getServices()
         ]);
-
+  
         const sortedPlans = plansData.sort((a, b) => {
           if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-
+  
         const sortedServices = servicesData.sort((a, b) => {
           if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
           return new Date(b.createdAt) - new Date(a.createdAt);
         });
-
+  
         setPlans(sortedPlans);
         setServices(sortedServices);
       } catch (error) {
@@ -46,21 +47,62 @@ const Services = () => {
         setLoading(false);
       }
     };
-
+  
     fetchData();
-
+  
+    // -------------------------------
+    // 🔥 AUTO-REMOVE EXPIRED PLANS
+    // -------------------------------
+  
+    const getPlanDurationInDays = (durationString) => {
+      if (!durationString) return 30;  // fallback
+  
+      const parts = durationString.split(" ");
+      const value = parseInt(parts[0]);
+      const unit = parts[1]?.toLowerCase();
+  
+      if (unit.includes("day")) return value;
+      if (unit.includes("month")) return value * 30;
+  
+      return 30;
+    };
+  
     const storedData = localStorage.getItem('myPlans');
     if (storedData) {
-        try {
-            const parsedData = JSON.parse(storedData);
-            // Extract just the IDs (e.g., ["O4OrZb...", "plan_2"])
-            const ids = parsedData.map(item => item.planId);
-            setPurchasedPlanIds(ids);
-        } catch (e) {
-            console.error("Error reading plans from local storage", e);
-        }
+      try {
+        const parsedData = JSON.parse(storedData);
+        const now = new Date();
+  
+        // Clean & regenerate expiry if missing
+        const cleanedPlans = parsedData
+          .map(plan => {
+            // If no expiry stored (older data), regenerate expiry
+            if (!plan.expiresAt) {
+              const purchasedAt = new Date(plan.purchasedAt);
+              const durationDays = getPlanDurationInDays(plan.duration || "30 Days");
+  
+              const expiresAt = new Date(
+                purchasedAt.getTime() + durationDays * 24 * 60 * 60 * 1000
+              );
+  
+              return { ...plan, expiresAt: expiresAt.toISOString() };
+            }
+            return plan;
+          })
+          .filter(plan => new Date(plan.expiresAt) > now); // keep only non-expired plans
+  
+        // Update purchasedPlanIds
+        const ids = cleanedPlans.map(item => item.planId);
+        setPurchasedPlanIds(ids);
+  
+        // Save cleaned plans back to localStorage
+        localStorage.setItem("myPlans", JSON.stringify(cleanedPlans));
+      } catch (e) {
+        console.error("Error reading plans from local storage", e);
+      }
     }
   }, []);
+  
 
   const categories = [
     { id: 'all', name: 'All Plans', icon: '🚀' },
@@ -208,12 +250,13 @@ const Services = () => {
           {/* PLANS */}
           <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ${selectedCategory === 'condition' ? 'mb-0' : 'mb-16'}`}>
             {visiblePlans.map(plan => (
-              <PlansCard 
-                key={plan.id} 
-                plan={plan} 
-                onClick={handlePlanClick} 
+              <PlansCard
+                key={plan.id}
+                plan={plan}
+                onClick={handlePlanClick}
                 isPurchased={isPlanPurchased(plan.id)}
                 onPaymentSuccess={onPaymentSuccess}
+                setPaymentLoading={setPaymentLoading}
               />
             ))}
           </div>
@@ -289,7 +332,7 @@ const Services = () => {
                 className="block w-full px-6 py-3 bg-[var(--color-green)] text-white rounded-lg text-center font-medium hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all"
                 onClick={() => {
                   if (!isPlanPurchased(selectedPlan.id)) {
-                    handleBuyPlan(selectedPlan, { name: "App User", email: "user@example.com" }, onPaymentSuccess);
+                    handleBuyPlan(selectedPlan, onPaymentSuccess, setPaymentLoading);
                   }
                 }}
                 disabled={isPlanPurchased(selectedPlan.id)}
@@ -302,13 +345,13 @@ const Services = () => {
               <button
                 className="flex-1 px-6 py-3 bg-[var(--color-green)] text-white rounded-lg hover:bg-white hover:text-[var(--color-green)] border-2 border-transparent hover:border-[var(--color-green)] transition-all font-medium text-center cursor-pointer"
                 onClick={() => {
-                      if(!isPlanPurchased(selectedPlan.id)) {
-                          handleBuyPlan(selectedPlan, { name: "App User", email: "user@example.com" }, onPaymentSuccess);
-                      }
-                  }}
-                  disabled={isPlanPurchased(selectedPlan.id)}
-                >
-                  {isPlanPurchased(selectedPlan.id) ? 'Plan Active (Purchased)' : 'Book This Plan'}
+                  if (!isPlanPurchased(selectedPlan.id)) {
+                    handleBuyPlan(selectedPlan, onPaymentSuccess, setPaymentLoading);
+                  }
+                }}
+                disabled={isPlanPurchased(selectedPlan.id)}
+              >
+                {isPlanPurchased(selectedPlan.id) ? 'Plan Active (Purchased)' : 'Book This Plan'}
               </button>
               <button onClick={closePlanDetails} className="px-6 py-3 border-2 border-gray-300 text-gray-700 rounded-lg hover:bg-red-300 transition-colors font-medium cursor-pointer" > Close </button>
             </div>
@@ -316,6 +359,12 @@ const Services = () => {
         </div>)}
 
       <Footer />
+      {paymentLoading && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-[9999]">
+          <Loader fullScreen={false} text="Preparing payment..." />
+        </div>
+      )}
+
     </Background>
   );
 };

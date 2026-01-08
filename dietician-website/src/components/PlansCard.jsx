@@ -1,19 +1,14 @@
 import React from 'react';
-import { handleBuyPlan } from '../utils/paymentHandler'; // Adjust path if needed
+import { handleBuyPlan } from '../utils/paymentHandler';
 
-const PlansCard = ({ plan, onClick, isPurchased, onPaymentSuccess }) => {
+const PlansCard = ({ plan, onClick, isPurchased, onPaymentSuccess , setPaymentLoading}) => {
     
-    // Placeholder user details (Replace with real user context later)
-    const userDetails = {
-        name: "App User", 
-        email: "user@example.com"
-    };
-
+    
     const handleBookClick = (e) => {
-        e.stopPropagation(); // Prevent triggering the "View Details" onClick on the card container
+        e.stopPropagation(); 
         
         if (!isPurchased) {
-            handleBuyPlan(plan, userDetails, onPaymentSuccess);
+            handleBuyPlan(plan, onPaymentSuccess, setPaymentLoading);
         }
     };
 
