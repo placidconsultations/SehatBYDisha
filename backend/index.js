@@ -46,9 +46,9 @@ app.post("/api/create-order", async (req, res) => {
     const amount = plan.price;
 
     const order = await razorpay.orders.create({
-      amount: amount * 100,
+      amount: Math.round(Number(amount) * 100),
       currency: "INR",
-      receipt: `rcpt_${Date.now()}_${planId}`,
+      receipt: `rcpt_${Date.now()}_${planId.slice(0, 10)}`,
     });
 
     // Save order temporarily
