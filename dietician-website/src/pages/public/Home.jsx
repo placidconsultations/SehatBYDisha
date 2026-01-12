@@ -34,11 +34,11 @@ const Home = () => {
                 </li>
                 <li className="flex items-start">
                   <span className="flex-shrink-0 w-2 h-2 mt-2.5 mr-3 rounded-full bg-[var(--color-green)]"></span>
-                  <span className="text-[var(--color-darkGray)]">Weight & Wellness Tracking</span>
+                  <span className="text-[var(--color-darkGray)]">Holistic Wellness Support</span>
                 </li>
                 <li className="flex items-start">
                   <span className="flex-shrink-0 w-2 h-2 mt-2.5 mr-3 rounded-full bg-[var(--color-green)]"></span>
-                  <span className="text-[var(--color-darkGray)]">Sustainable Lifestyle Coaching</span>
+                  <span className="text-[var(--color-darkGray)]">Nutrition that fits your Lifestyle</span>
                 </li>
               </ul>
               {/* Mobile Image - Only shows on mobile */}
@@ -60,11 +60,13 @@ const Home = () => {
                   View Plans
                 </Link>
                 {/* Secondary Button */}
-                <Link
-                  to="/services"
+                <a
+                  href="https://wa.me/917898654510?text=Hello%2C%20I%20would%20like%20to%20know%20more%20about%20your%20services."
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className=" inline-flex justify-center items-center px-6 py-3 relative z-30 rounded-md font-medium text-base text-[var(--color-green)] border-2 border-[var(--color-green)] transition-all duration-700 overflow-hidden [text-shadow:3px_5px_2px_rgba(0,0,0,0.25)] hover:[text-shadow:2px_2px_2px_rgba(0,0,0,0.20)] after:content-[''] after:absolute after:left-5 after:bottom-0 after:h-1 after:w-1 after:bg-[var(--color-green)] after:rounded-md after:-z-20 after:translate-y-full after:transition-all after:duration-700 hover:after:scale-[300] hover:bg-[var(--color-green)] hover:text-white " >
                   Chat With Disha
-                </Link>
+                </a>
               </div>
             </div>
             {/* Right Column - Desktop Image */}
@@ -107,7 +109,7 @@ const Home = () => {
                 </h2>
                 <div className="h-1 w-20 bg-[var(--color-green)] mb-6"></div>
                 <p className="text-[var(--color-darkGrayish)] mb-6 leading-relaxed">
-                  Hi, I’m <b>Disha Bhojwani</b>, a qualified Dietician with over <b>3+ years</b> of experience in helping people heal, not just lose weight. I hold a Bachelor’s <b>degree in Food and Nutrition</b> and have completed my clinical internship at CK Birla Hospital, Jaipur, where I worked closely with patients, including those in the ICU.  </p> <p className="text-[var(--color-darkGrayish)] mb-6 leading-relaxed"> Over the years, I have guided 100+ clients in managing conditions such as <b>PCOD/PCOS, thyroid disorders, autoimmune issues, skin conditions, heart health, and sustainable fat loss</b>. My approach focuses on root-cause healing, lifestyle correction, and long-term results rather than calorie counting. Within a month, clients often experience improved energy, fat loss, menstrual balance, and reduced pain. I believe in intuitive, bio-individual nutrition and provide <b>empathetic, science-backed, personalized care </b> that fits real-life routines and builds a healthy, lasting relationship with food.  </p>
+                  Hi, I’m <b>Disha Bhojwani</b>, a qualified Dietician with over <b>5+ years</b> of experience in helping people heal, not just lose weight. I hold a Bachelor’s <b>degree in Food and Nutrition(Bsc)</b> and have completed my clinical internship at CK Birla Hospital, Jaipur, where I worked closely with patients, including those in the ICU.  </p> <p className="text-[var(--color-darkGrayish)] mb-6 leading-relaxed"> Over the years, I have guided 100+ clients in managing conditions such as <b>PCOD/PCOS, thyroid disorders, autoimmune issues, skin conditions, heart health, and sustainable fat loss</b>. My approach focuses on root-cause healing, lifestyle correction, and long-term results rather than calorie counting. Within a month, clients often experience improved energy, fat loss, menstrual balance, and reduced pain. I believe in intuitive, bio-individual nutrition and provide <b>empathetic, science-backed, personalized care </b> that fits real-life routines and builds a healthy, lasting relationship with food.  </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   <div className="flex items-center">
                     <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[var(--color-green)] mr-3"></span>
@@ -115,7 +117,7 @@ const Home = () => {
                   </div>
                   <div className="flex items-center">
                     <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[var(--color-green)] mr-3"></span>
-                    <span className="text-[var(--color-darkGray)]">3+ Years Experience</span>
+                    <span className="text-[var(--color-darkGray)]">5+ Years Experience</span>
                   </div>
                   <div className="flex items-center">
                     <span className="flex-shrink-0 w-2 h-2 rounded-full bg-[var(--color-green)] mr-3"></span>

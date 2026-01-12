@@ -1,6 +1,5 @@
 import React from 'react';
-import { FaLeaf, FaHeartbeat, FaStethoscope, FaBriefcase, FaClipboardList, FaSearch, FaHandHoldingHeart, FaBrain } from 'react-icons/fa';
-import { GiFruitBowl, GiMeal } from 'react-icons/gi';
+import { FaHeartbeat, FaStethoscope, FaBriefcase, FaClipboardList, FaSearch, FaHandHoldingHeart, FaBrain } from 'react-icons/fa';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import Background from '../../components/Background';
@@ -8,10 +7,10 @@ import ImageWithLoader from '../../components/ImageWithLoader';
 
 const About = () => {
   const stats = [
-    { icon: <FaBriefcase className="text-3xl text-[var(--color-green)]" />, number: '3+', label: 'Years Experience' },
-    { icon: <FaHeartbeat className="text-3xl text-[var(--color-green)]" />, number: '100+', label: 'Happy Clients' },
-    { icon: <FaStethoscope className="text-3xl text-[var(--color-green)]" />, number: '30+', label: 'Health Conditions Treated' },
-    { icon: <FaClipboardList className="text-3xl text-[var(--color-green)]" />,number: '4+', label: 'Personalized Plans' }
+    { icon: <FaBriefcase className="text-3xl text-[var(--color-green)]" />, number: '5+', label: 'Years Experience' },
+    { icon: <FaHeartbeat className="text-3xl text-[var(--color-green)]" />, number: '500+', label: 'Happy Clients' },
+    { icon: <FaStethoscope className="text-3xl text-[var(--color-green)]" />, number: '100+', label: 'Health Conditions Treated' },
+    { icon: <FaClipboardList className="text-3xl text-[var(--color-green)]" />,number: '100+', label: 'Personalized Plans' }
   ];
 
   const features = [
@@ -42,11 +41,11 @@ const About = () => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="text-center ">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-                  About <span className="text-[var(--color-green)]">Me</span>
+                  My <span className="text-[var(--color-green)]">Healing</span> Journey
                 </h1>
-                <div className="h-1 w-24 sm:w-36 bg-[var(--color-green)] rounded-lg mx-auto mb-3"></div>
+                <div className="h-1 w-34 sm:w-48 bg-[var(--color-green)] rounded-lg mx-auto mb-3"></div>
                 <p className="text-base sm:text-lg text-gray-600 max-w-3xl mx-auto">
-                  Empowering your health journey with personalized nutrition and lifestyle solutions.
+                  From personal struggle to professional passion - my journey of healing and transformation.
                 </p>
               </div>
             </div>
@@ -58,39 +57,6 @@ const About = () => {
               <div className="lg:grid lg:grid-cols-2 lg:gap-12 items-center">
                 <div className="mb-10 lg:mb-0">
                   <div className="space-y-3 sm:space-y-4 text-gray-600 text-sm sm:text-base">
-                    <p>
-                      Hi, I'm <span className="text-[var(--color-green)] font-bold">Disha Bhojwani</span>, a qualified Dietician with over <span className="text-[var(--color-green)] font-bold">3+ years of experience</span> in helping people heal, not just lose weight. I hold a Bachelor's degree in Food and Nutrition and have completed my clinical internship at CK Birla Hospital, Jaipur, where I worked closely with patients, including those in the ICU.</p>
-                      <p>Over the years, I've successfully guided <span className="text-[var(--color-green)] font-bold">100+ clients</span> through concerns such as PCOD/PCOS, thyroid disorders, kidney issues, autoimmune conditions, skin disorders (psoriasis, eczema, alopecia areata), heart health, and sustainable fat loss. My approach goes beyond calorie counting, I focus on <span className="text-[var(--color-green)] font-bold">root-cause healing</span>.</p>
-                    <p>Within just <span className="text-[var(--color-green)] font-bold">one month</span> of working with me, most clients begin to notice visible improvements in <span className="text-[var(--color-green)] font-bold">fat loss</span>, menstrual regularity, reduced back and leg pain, improved energy levels, and overall physical and mental strength.</p>
-                    <p>I strongly believe in <span className="text-[var(--color-green)] font-bold">intuitive eating</span> and a bio-individual approach because no two bodies are the same. Your diet should support your body, your lifestyle, and your health goals. I treat every client with empathy and science-backed guidance, and <span className="text-[var(--color-green)] font-bold">personalised care</span>, helping them build a healthier relationship with food for life.</p>
-                  </div>
-                </div>
-                <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden shadow-xl shadow-black/40 p-4">
-                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-green)] to-[var(--color-darkGreen)] opacity-40"></div>
-                  <ImageWithLoader 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=100"
-                    alt="after" 
-                    loading="lazy"
-                    className="h-full w-full object-contain rounded-sm border-4 border-white rotate-4 bg-[var(--color-darkGreen)]/40"
-                    />
-                </div>
-              </div>
-            </div>
-          </section>
-
-          {/* My Healing Journey */}
-          <section className="py-12">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="text-center mb-12">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4 relative">
-                  <span className="relative z-10">🌿 My Healing Journey</span>
-                  <div className="absolute left-1/2 bottom-0 transform -translate-x-1/2 w-46 sm:w-56 h-3 bg-gradient-to-r from-[var(--color-green)]/43 to-transparent rounded-lg"></div>
-                </h2>
-              </div>
-              
-              <div className="max-w-4xl mx-auto">
-                <div className="bg-white rounded-xl shadow-sm p-6 sm:p-8">
-                  <div className="space-y-4 text-gray-600 text-sm sm:text-base leading-relaxed">
                     <p>
                       In 2019, I was diagnosed with <span className="text-[var(--color-green)] font-bold">alopecia areata</span>. Medicines didn't work, and watching my hair fall was emotionally exhausting. I felt <span className="text-[var(--color-green)] font-bold">scared, helpless, and constantly anxious</span> about what was happening to my body.
                     </p>
@@ -104,6 +70,15 @@ const About = () => {
                       Today, I'm <span className="text-[var(--color-green)] font-bold">healthier, stronger, and deeply connected</span> to the work I do because I don't just guide people professionally, I understand healing personally.
                     </p>
                   </div>
+                </div>
+                <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden shadow-xl shadow-black/40 p-4">
+                  <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-green)] to-[var(--color-darkGreen)] opacity-40"></div>
+                  <ImageWithLoader 
+                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=100"
+                    alt="after" 
+                    loading="lazy"
+                    className="h-full w-full object-contain rounded-sm border-4 border-white rotate-4 bg-[var(--color-darkGreen)]/40"
+                    />
                 </div>
               </div>
             </div>

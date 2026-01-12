@@ -337,7 +337,7 @@ const Services = () => {
                 }}
                 disabled={isPlanPurchased(selectedPlan.id)}
               >
-                {isPlanPurchased(selectedPlan.id) ? 'Plan Active (Purchased)' : 'Book This Plan'}\
+                {isPlanPurchased(selectedPlan.id) ? 'Plan Active (Purchased)' : 'Book This Plan'}
               </button>
             </div>
             {/* Desktop Actions */}

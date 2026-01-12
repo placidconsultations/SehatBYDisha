@@ -3,6 +3,7 @@ import calendar from '../assets/icons/calendar.svg'
 import target from '../assets/icons/target.svg'
 import lifestyle from '../assets/icons/lifestyle.png'
 import check from '../assets/icons/check-square.svg'
+import { Link } from 'react-router-dom';
 
 // Icon for Personalized Nutrition
 const NutritionIcon = (props) => (
@@ -136,7 +137,9 @@ const DarkFeatureCard = () => (
       </p>
     </div>
 
-    <button className="
+    <Link 
+    to={'/services'}
+    className="
       inline-flex justify-center items-center w-40
       px-6 py-3 relative z-30 rounded-md font-medium text-base
       text-white border-2 border-white
@@ -150,7 +153,7 @@ const DarkFeatureCard = () => (
       hover:bg-[var(--color-green)] hover:text-[var(--color-green)] cursor-pointer
     ">
       View Plans →
-    </button>
+    </Link>
   </div>
 );
 
@@ -172,7 +175,7 @@ export function WhyChooseUs() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div className="max-w-4xl mx-auto text-center lg:text-left mb-12">
-          <p className="text-gray-500 font-semibold text-sm tracking-widest">WHY CHOOSE US</p>
+          <p className="text-gray-500 font-semibold text-sm tracking-widest">WHY CHOOSE DISHA</p>
 
           <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mt-2 leading-tight">
             Why <span className="text-[var(--color-green)]">Sehat by Disha</span> Is the Right Choice for You
