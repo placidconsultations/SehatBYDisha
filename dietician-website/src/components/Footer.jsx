@@ -1,6 +1,7 @@
 import React from 'react';
-import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaYoutube } from 'react-icons/fa';
-import { FaX, FaXTwitter } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaLinkedin, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaYoutube } from 'react-icons/fa';
+import { FaXTwitter } from 'react-icons/fa6';
+import {Link} from 'react-router-dom'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -36,11 +37,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              <li className="mb-2 sm:mb-1"><a href="#" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Home</a></li>
-              <li className="mb-2 sm:mb-1"><a href="#about" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">About Us</a></li>
-              <li className="mb-2 sm:mb-1"><a href="#services" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Services</a></li>
-              <li className="mb-2 sm:mb-1"><a href="#testimonials" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Testimonials</a></li>
-              <li><a href="#contact" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Contact</a></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Home</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/about'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">About Me</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Services</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/blogs'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Blogs</Link></li>
+              <li><Link to={'/contact'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Contact</Link></li>
             </ul>
           </div>
 
@@ -48,11 +49,11 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Our Services</h4>
             <ul className="space-y-2">
-              <li className="mb-2 sm:mb-1"><a href="#" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Personalized Diet Plans</a></li>
-              <li className="mb-2 sm:mb-1"><a href="#" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Weight Management</a></li>
-              <li className="mb-2 sm:mb-1"><a href="#" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Sports Nutrition</a></li>
-              <li className="mb-2 sm:mb-1"><a href="#" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Medical Nutrition Therapy</a></li>
-              <li><a href="#" className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Meal Planning</a></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services#personalized-diet-plans'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Personalized Diet Plans</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services#weight-management'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Weight Management</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services#sports-nutrition'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Sports Nutrition</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services#medical-nutrition-therapy'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Medical Nutrition Therapy</Link></li>
+              <li><Link to={'/services#meal-planning'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Meal Planning</Link></li>
             </ul>
           </div>
 
@@ -66,11 +67,11 @@ const Footer = () => {
               </div>
               <div className="flex items-center space-x-3">
                 <FaPhoneAlt />
-                <a href="tel:+911234567890" className="text-gray-400 hover:text-[var(--color-green)] transition-colors">+91 12345 67890</a>
+                <a href="tel:+91 7898654510" className="text-gray-400 hover:text-[var(--color-green)] transition-colors">+917898654510</a>
               </div>
               <div className="flex items-center space-x-3">
                 <FaEnvelope />
-                <a href="mailto:info@sehatbydisha.com" className="text-gray-400 hover:text-[var(--color-green)] transition-colors">info@sehatbydisha.com</a>
+                <a href="mailto:info@sehatbydisha.com" className="text-gray-400 hover:text-[var(--color-green)] transition-colors">placid.consultations@gmail.com</a>
               </div>
             </div>
           </div>
@@ -83,9 +84,9 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
           <p className="text-gray-500 text-xs sm:text-sm">© {currentYear} Sehat by Disha. All rights reserved.</p>
           <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-6 mt-4 md:mt-0">
-            <a href="#" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Privacy Policy</a>
-            <a href="#" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Terms of Service</a>
-            <a href="#" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Sitemap</a>
+            <a href="/privacy-policy" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Privacy Policy</a>
+            <a href="/terms-of-service" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Terms of Service</a>
+            <a href="/sitemap" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Sitemap</a>
           </div>
         </div>
       </div>

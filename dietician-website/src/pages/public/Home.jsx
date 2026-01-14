@@ -239,7 +239,7 @@ const Home = () => {
           </div>
         </section>
         {/* Testimonials */}
-        <section className="py-10">
+        <section id='testimonials' className="py-10">
           <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8"></div>
           <TestimonialTicker />
           <TransformationTicker />

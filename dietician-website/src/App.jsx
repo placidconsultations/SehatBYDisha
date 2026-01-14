@@ -11,6 +11,10 @@ import Services from './pages/public/Services';
 import Blogs from './pages/public/Blogs';
 import BlogDetails from './pages/public/BlogDetails';
 import About from './pages/public/About';
+import PrivacyPolicy from './pages/public/PrivacyPolicy';
+import TermsOfService from './pages/public/TermsOfService';
+import Sitemap from './pages/public/Sitemap';
+import UnderDevelopment from './pages/public/UnderDevelopment';
 import AddPost from './pages/admin/AddPost';
 import EditPost from './pages/admin/EditPost';
 import Contact from './pages/public/Contact';
@@ -19,7 +23,7 @@ import Dashboard from './pages/admin/Dashboard';
 import ManageTestimonials from './pages/admin/ManageTestimonials';
 import ManagePlans from './pages/admin/ManagePlans';
 import AddPlan from './pages/admin/AddPlan';
-
+import NotFound from './pages/public/NotFound';
 
 const App = () => {
     return (
@@ -45,7 +49,11 @@ const App = () => {
                 <Route path='/blogs' element={<Blogs />} />
                 <Route path='/blogs/:id' element={<BlogDetails />} />
                 <Route path='/contact' element={<Contact />} />
-                
+                <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+                <Route path='/terms-of-service' element={<TermsOfService />} />
+                <Route path='/sitemap' element={<Sitemap />} />
+                <Route path='/under-development' element={<UnderDevelopment />} />
+                <Route path='*' element={<NotFound />} />
                 {/* Admin Login - Public but redirects if already logged in */}
                 <Route path='/admin/login' element={<AdminLogin/>}/>
                 
