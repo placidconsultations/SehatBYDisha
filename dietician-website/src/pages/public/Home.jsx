@@ -19,7 +19,7 @@ const Home = () => {
             {/* Left Column - Text Content */}
             <div className="w-full md:w-1/2 md:pr-8">
               <h1 className="text-3xl font-bold text-[var(--color-darkGray)] mb-2 sm:text-4xl md:text-5xl transition-default"> Sehat By Disha </h1>
-              <p className="text-base text-[var(--color-darkGrayish)] mb-4 sm:text-md transition-default">
+              <p className="text-sm md:text-base text-[var(--color-darkGrayish)] mb-4 sm:text-md transition-default">
                 <span className="text-[var(--color-green)] font-bold">Personalized nutrition for your unique wellness journey.</span>
               </p>
               <ul className="space-y-3 mb-8">

@@ -166,7 +166,7 @@ const PrivacyPolicy = () => {
                 <div className="bg-gray-50 rounded-lg p-4 space-y-2">
                   <p><strong>Email:</strong> placid.consultations@gmail.com</p>
                   <p><strong>Phone:</strong> +91 7898654510</p>
-                  <p><strong>Address:</strong> 123 Health Street, Wellness City, WC 12345</p>
+                  {/* <p><strong>Address:</strong> 123 Health Street, Wellness City, WC 12345</p> */}
                 </div>
               </div>
             </section>

@@ -68,21 +68,21 @@ ${formData.message}
     {
       icon: <FaEnvelope className="text-2xl text-[var(--color-green)]" />,
       title: 'Email Us',
-      content: 'info@dietician.com',
-      link: 'mailto:info@dietician.com'
+      content: 'placid.consultations@gmail.com',
+      link: 'mailto:placid.consultations@gmail.com'
     },
     {
       icon: <FaPhone className="text-2xl text-[var(--color-green)]" />,
       title: 'Call Us',
-      content: '+1 (555) 123-4567',
-      link: 'tel:+15551234567'
+      content: '+91 7898654510',
+      link: 'tel:+917898654510'
     },
-    {
-      icon: <FaMapMarkerAlt className="text-2xl text-[var(--color-green)]" />,
-      title: 'Visit Us',
-      content: '123 Health St, Wellness City, 10001',
-      link: 'https://maps.google.com'
-    }
+    // {
+    //   icon: <FaMapMarkerAlt className="text-2xl text-[var(--color-green)]" />,
+    //   title: 'Visit Us',
+    //   content: '123 Health St, Wellness City, 10001',
+    //   link: 'https://maps.google.com'
+    // }
   ];
 
   const content = (

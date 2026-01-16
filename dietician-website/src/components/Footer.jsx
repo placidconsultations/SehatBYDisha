@@ -12,22 +12,25 @@ const Footer = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-6">
           {/* About Section */}
           <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-[var(--color-green)]">Sehat by Disha</h3>
+            <div className="flex items-center space-x-3">
+              <img src="/src/assets/SehatByDisha-Logo.jpeg" alt="Sehat By Disha Logo" className="h-12 w-12 object-contain" />
+              <h3 className="text-2xl font-bold text-[var(--color-green)]">Sehat By Disha</h3>
+            </div>
             <p className="text-gray-400">Your trusted partner in achieving optimal health through personalized nutrition and lifestyle guidance.</p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-[#1877F2] transition-colors">
+              {/* <a href="#" className="text-gray-400 hover:text-[#1877F2] transition-colors">
                 <FaFacebook size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-pink-600 transition-colors">
+              </a> */}
+              <a href="https://www.instagram.com/sehatbydisha" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-600 transition-colors">
                 <FaInstagram size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              {/* <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <FaXTwitter size={20} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#0077B5] transition-colors">
+              </a> */}
+              <a href="#"  className="text-gray-400 hover:text-[#0077B5] transition-colors">
                 <FaLinkedin size={20} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-[#FF0033] transition-colors">
+              <a href="#"  className="text-gray-400 hover:text-[#FF0033] transition-colors">
                 <FaYoutube size={20} />
               </a>
             </div>
@@ -61,13 +64,13 @@ const Footer = () => {
           <div className="space-y-4">
             <h4 className="text-lg font-semibold">Contact Us</h4>
             <div className="space-y-3">
-              <div className="flex items-start space-x-3">
+              {/* <div className="flex items-start space-x-3">
                 <FaMapMarkerAlt className="mt-1 flex-shrink-0" />
                 <span className="text-gray-400">123 Health Street, Nutrition City, 560001</span>
-              </div>
+              </div> */}
               <div className="flex items-center space-x-3">
                 <FaPhoneAlt />
-                <a href="tel:+91 7898654510" className="text-gray-400 hover:text-[var(--color-green)] transition-colors">+917898654510</a>
+                <a href="tel:+91 7898654510" className="text-gray-400 hover:text-[var(--color-green)] transition-colors">+91 7898654510</a>
               </div>
               <div className="flex items-center space-x-3">
                 <FaEnvelope />
