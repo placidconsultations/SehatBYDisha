@@ -77,7 +77,7 @@ const Navbar = () => {
             <Link to="/" className="flex items-center group">
               <div className="bg-[var(--color-green)] rounded-lg group-hover:rotate-[360deg] transition-transform duration-600">
                 <img 
-                  src="/src/assets/SehatByDisha-Logo.jpeg" 
+                  src="/SehatByDisha-Logo.jpeg" 
                   alt="Sehat By Disha Logo" 
                   className="h-12 w-12 md:h-16 md:w-16 object-contain"
                 />

@@ -13,7 +13,7 @@ const Footer = () => {
           {/* About Section */}
           <div className="space-y-4">
             <div className="flex items-center space-x-3">
-              <img src="/src/assets/SehatByDisha-Logo.jpeg" alt="Sehat By Disha Logo" className="h-12 w-12 object-contain" />
+              <img src="/SehatByDisha-Logo.jpeg" alt="Sehat By Disha Logo" className="h-12 w-12 object-contain" />
               <h3 className="text-2xl font-bold text-[var(--color-green)]">Sehat By Disha</h3>
             </div>
             <p className="text-gray-400">Your trusted partner in achieving optimal health through personalized nutrition and lifestyle guidance.</p>
