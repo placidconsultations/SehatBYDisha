@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaBars, FaTimes, FaSignOutAlt } from 'react-icons/fa';
-import { FaBowlFood } from 'react-icons/fa6';
 import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../firebase/firebase';
 import { toast } from 'react-toastify';

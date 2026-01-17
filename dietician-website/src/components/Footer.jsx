@@ -27,10 +27,10 @@ const Footer = () => {
               {/* <a href="#" className="text-gray-400 hover:text-white transition-colors">
                 <FaXTwitter size={20} />
               </a> */}
-              <a href="#"  className="text-gray-400 hover:text-[#0077B5] transition-colors">
+              <a href="https://www.linkedin.com/company/sehatbydisha" target='_blank' rel='noopener noreferrer' className="text-gray-400 hover:text-[#0077B5] transition-colors">
                 <FaLinkedin size={20} />
               </a>
-              <a href="#"  className="text-gray-400 hover:text-[#FF0033] transition-colors">
+              <a href="https://youtube.com/@sehatbydisha" target='_blank' rel='noopener noreferrer'  className="text-gray-400 hover:text-[#FF0033] transition-colors">
                 <FaYoutube size={20} />
               </a>
             </div>
