@@ -47,7 +47,7 @@ const Home = () => {
                   <div className="absolute inset-0 bg-[var(--color-green)] rounded-full opacity-20 blur-lg -z-10 transition-default">
                   </div>
                   <div className="relative w-full h-full overflow-hidden rounded-full border-4 border-white shadow-2xl">
-                    <ImageWithLoader src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Happy client" className="w-full h-full object-cover" loading="lazy" />
+                    <ImageWithLoader src="/Home-Disha.jpeg" alt="Disha Personal Image" className="w-full h-full object-cover" loading="lazy" />
                   </div>
                 </div>
               </div>
@@ -75,8 +75,8 @@ const Home = () => {
                 <div className="absolute inset-0 bg-[var(--color-green)] rounded-full opacity-20 blur-lg -z-10 transition-default">
                 </div>
                 <div className="relative w-full h-full overflow-hidden rounded-full border-4 border-white shadow-2xl">
-                  <ImageWithLoader src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
-                    alt="Happy client"
+                  <ImageWithLoader src="/Home-Disha.jpeg"
+                    alt="Disha Personal Image"
                     className="w-full h-full object-cover"
                     loading="lazy" />
                 </div>
@@ -94,7 +94,7 @@ const Home = () => {
                   <div className="absolute inset-0 bg-[var(--color-green)] rounded-2xl opacity-40 -z-10 transform rotate-4">
                   </div>
                   <div className="relative w-full h-full overflow-hidden rounded-2xl border-4 border-white shadow-xl">
-                    <ImageWithLoader src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80"
+                    <ImageWithLoader src="AboutMe-Disha.jpeg"
                       alt="Disha - Your Dietitian"
                       className="w-full h-full object-cover"
                       loading="lazy" />

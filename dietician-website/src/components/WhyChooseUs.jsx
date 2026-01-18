@@ -54,7 +54,7 @@ const features = [
     icon: NutritionIcon,
     title: "Personalized Nutrition Plans",
     description:
-      "Every body is different. Receive diet plans fully customized to your lifestyle, goals, medical conditions, and food preferences — no generic templates.",
+      "Every body is different. Receive diet plans fully customized to your lifestyle, goals, medical conditions, and food preferences no generic templates.",
     bg: 'bg-gray-100',
     spanClass: 'lg:col-span-1',
   },
@@ -72,7 +72,7 @@ const features = [
     icon: CoachingIcon,
     title: "Sustainable Lifestyle Approach",
     description:
-      "We help you build healthy habits that last — not restrictive diets. Learn how to eat well, stay energetic, and maintain long-term health with ease.",
+"We understand that staying consistent is hard and that the diet cycle often feels like it keeps repeating. That’s why we design plans that are practical, flexible, and based on your preferences, so you enjoy following them and don’t fall back again.",
     bg: 'bg-gray-100',
     spanClass: 'lg:col-span-2',
     isLarge: true,
@@ -129,7 +129,7 @@ const DarkFeatureCard = () => (
       <h2 className="font-semibold text-2xl mt-4">Flexible Check-in Schedules</h2>
 
       <p className="mt-4 text-white/80 text-sm leading-relaxed">
-        Whether you're a student, working professional, or homemaker — our plans adapt to your timings. Check in at your convenience and progress at your pace.
+        Whether you're a student, working professional, or homemaker our plans adapt to your timings. Check in at your convenience and progress at your pace.
       </p>
 
       <p className="mt-4 text-white/80 text-sm leading-relaxed">

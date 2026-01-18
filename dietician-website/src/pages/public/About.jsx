@@ -74,10 +74,10 @@ const About = () => {
                 <div className="relative h-64 sm:h-80 md:h-96 rounded-xl overflow-hidden shadow-xl shadow-black/40 p-4">
                   <div className="absolute inset-0 bg-gradient-to-r from-[var(--color-green)] to-[var(--color-darkGreen)] opacity-40"></div>
                   <ImageWithLoader 
-                    src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=100"
-                    alt="after" 
+                    src="/AboutMe-Disha.jpeg"
+                    alt="Disha-Your Dietitian" 
                     loading="lazy"
-                    className="h-full w-full object-contain rounded-sm border-4 border-white rotate-4 bg-[var(--color-darkGreen)]/40"
+                    className="h-full w-full object-cover rounded-sm border-4 border-white rotate-4 bg-[var(--color-darkGreen)]/40"
                     />
                 </div>
               </div>
