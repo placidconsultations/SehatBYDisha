@@ -66,7 +66,7 @@ export const handleBuyPlan = async (plan, onSuccess, setPaymentLoading) => {
             order_id: orderId,
             name: "Sehat By Disha",
             description: `Purchase ${plan.title}`,
-            image: 'https://images.unsplash.com/photo-1552053831-71594a27632d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2ODkwNjR8MHwxfHNlYXJjaHwzfHxkb2d8ZW58MHx8fHwxNzY3ODkwMjU1fDA&ixlib=rb-4.1.0&q=80&w=400',
+            image: '/SehatByDisha-Logo.jpeg',
 
             modal: {
                 ondismiss: () => {
