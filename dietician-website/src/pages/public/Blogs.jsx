@@ -97,9 +97,15 @@ const Blogs = ({ limit }) => {
     <div className={`container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 ${!limit ? 'pt-26 pb-8' : 'py-8'}`}>
       {!limit && (
         <div className="text-center mb-8 sm:mb-12 md:mb-16">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
-            Our <span className='text-[var(--color-green)]'>Blog</span>
-          </h2>
+          <div className='inline-block'>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-gray-900">
+              Our <span className='text-[var(--color-green)]'>Blog</span>
+            </h2>
+
+            <div className="h-1 w-24 bg-black rounded-lg ml-auto mt-2 mb-6"></div>
+          </div>
+
+
           <p className="mt-3 sm:mt-4 max-w-2xl mx-auto text-base sm:text-lg md:text-xl text-gray-500">
             Read our latest blog posts for insights and inspiration on your health and wellness journey
           </p>
@@ -109,7 +115,7 @@ const Blogs = ({ limit }) => {
         <div className="text-center py-12">
           <p className="text-gray-500 text-lg">No blog posts available yet. Check back soon!</p>
           {!limit && (
-            <Link 
+            <Link
               to="/blogs"
               className="mt-4 inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-[var(--color-green)] hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
             >
@@ -150,9 +156,9 @@ const Blogs = ({ limit }) => {
               )}
               {blog.imageUrl && (
                 <div className="w-full h-48 overflow-hidden">
-                  <ImageWithLoader 
-                    src={blog.imageUrl} 
-                    alt={blog.title}  
+                  <ImageWithLoader
+                    src={blog.imageUrl}
+                    alt={blog.title}
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -173,7 +179,7 @@ const Blogs = ({ limit }) => {
                   {blog.excerpt || (blog.content ? blog.content.substring(0, 150) + (blog.content.length > 150 ? '...' : '') : '')}
                 </p>
                 <div className="flex justify-between items-center">
-                  <Link 
+                  <Link
                     to={`/blogs/${blog.id}`}
                     className="text-blue-600 hover:underline inline-flex items-center"
                   >

@@ -103,11 +103,15 @@ const Home = () => {
               </div>
               {/* Content Column */}
               <div className="w-full md:w-7/12 lg:w-2/3">
+              <div className='inline-block'>
                 <h2 className="text-2xl font-bold text-[var(--color-darkGray)] mb-4 sm:text-3xl md:text-4xl">
                   About
                   <span className="text-[var(--color-green)]">Me</span>
                 </h2>
-                <div className="h-1 w-20 bg-[var(--color-green)] mb-6"></div>
+                <div className="h-1 w-24 bg-black rounded-lg ml-auto mt-2 mb-6"></div>
+
+              </div>
+
                 <p className="text-[var(--color-darkGrayish)] mb-6 leading-relaxed">
                   Hi, I’m <b>Disha Bhojwani</b>, a qualified Dietician with over <b>5+ years</b> of experience in helping people heal, not just lose weight. I hold a Bachelor’s <b>degree in Food and Nutrition(Bsc)</b> and have completed my clinical internship at CK Birla Hospital, Jaipur, where I worked closely with patients, including those in the ICU.  </p> <p className="text-[var(--color-darkGrayish)] mb-6 leading-relaxed"> Over the years, I have guided 100+ clients in managing conditions such as <b>PCOD/PCOS, thyroid disorders, autoimmune issues, skin conditions, heart health, and sustainable fat loss</b>. My approach focuses on root-cause healing, lifestyle correction, and long-term results rather than calorie counting. Within a month, clients often experience improved energy, fat loss, menstrual balance, and reduced pain. I believe in intuitive, bio-individual nutrition and provide <b>empathetic, science-backed, personalized care </b> that fits real-life routines and builds a healthy, lasting relationship with food.  </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
@@ -144,14 +148,17 @@ const Home = () => {
         <section className="py-16 bg-transparent">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-10">
-              <h2 className="text-2xl font-bold text-[var(--color-darkGray)] sm:text-3xl md:text-4xl">Watch Our <span className="text-[var(--color-green)]">Video</span>
-              </h2>
-              <div className="h-1 w-16 bg-[var(--color-green)] rounded-lg mx-auto mb-3"></div>
+              <div className='inline-block'>
+                <h2 className="text-2xl font-bold text-[var(--color-darkGray)] sm:text-3xl md:text-4xl">Watch Our <span className="text-[var(--color-green)]">Video</span>
+                </h2>
+                <div className="h-1 w-24 bg-black rounded-lg ml-auto mt-2 mb-6"></div>
+              </div>
+
               <p className="text-sm text-[var(--color-darkGrayish)] sm:text-base md:text-base max-w-2xl mx-auto"> Learn more about our approach to nutrition and wellness</p>
             </div>
             <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
               <iframe className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/p9J9cS1upRw"
+                src="https://www.youtube.com/embed/ufi_hgum7Fg"
                 title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 referrerPolicy="strict-origin-when-cross-origin"
                 allowFullScreen>
@@ -248,7 +255,11 @@ const Home = () => {
         <section className="py-8">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl"> Latest <span className="text-[var(--color-green)]">Blogs</span> </h2>
+              <div className="inline-block">
+                <h2 className="text-3xl font-bold text-gray-900 sm:text-4xl"> Latest <span className="text-[var(--color-green)]">Blogs</span> </h2>
+                <div className="h-1 w-24 bg-black rounded-lg ml-auto mt-2 mb-6"></div>
+              </div>
+
               <p className="mt-3 max-w-2xl mx-auto text-lg text-gray-500"> Check out our latest articles on nutrition, health, and wellness </p>
             </div>
             <Blogs limit={3} />

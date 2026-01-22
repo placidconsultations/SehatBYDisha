@@ -79,9 +79,12 @@ ${formData.message}
     <main className={`flex-grow ${isStandalonePage ? 'pt-24 pb-12 md:pt-32 md:pb-20' : 'pt-0'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-8 md:mb-12">
+          <div className='inline-block'>
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
             Get in <span className="text-[var(--color-green)]">Touch</span>
           </h1>
+                      <div className="h-1 w-24 bg-black rounded-lg ml-auto mt-2 mb-6"></div>
+</div>
           <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
             Have questions or want to schedule a consultation? We'd love to hear from you!
           </p>
