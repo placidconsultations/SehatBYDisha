@@ -91,7 +91,6 @@ export const handleBuyPlan = async (plan, onSuccess, setPaymentLoading) => {
                         }
                     );
 
-                    console.log(verifyRes.data);
 
                     if (verifyRes.data.success) {
 

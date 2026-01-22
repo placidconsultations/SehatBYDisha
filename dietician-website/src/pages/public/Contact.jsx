@@ -220,11 +220,11 @@ ${formData.message}
               <ul className="space-y-3 text-sm sm:text-base text-gray-600 bg-white p-4 rounded-lg shadow-sm border border-gray-50">
                 <li className="flex justify-between items-center">
                   <span className="font-medium">Monday - Friday</span>
-                  <span>9:00 AM - 6:00 PM</span>
+                  <span>9:00 AM - 9:00 PM</span>
                 </li>
                 <li className="flex justify-between items-center">
                   <span className="font-medium">Saturday</span>
-                  <span>10:00 AM - 4:00 PM</span>
+                  <span>10:00 AM - 9:00 PM</span>
                 </li>
                 <li className="flex justify-between items-center text-red-500">
                   <span className="font-medium">Sunday</span>
