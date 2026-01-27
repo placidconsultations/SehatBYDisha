@@ -118,5 +118,12 @@ app.post("/api/verify-payment", async (req, res) => {
 /*****************************************
  * Start server (Render requirement)
  *****************************************/
+
+
+// Health check route
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ status: 'UP' });
+});
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Backend running on port ${PORT}`));
