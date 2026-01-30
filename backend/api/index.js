@@ -17,9 +17,26 @@ admin.initializeApp({
 const db = admin.firestore();
 
 const app = express();
-app.use(cors({
-    origin:"*"
+const allowedOrigins = [
+  "https://sehatbydisha.vercel.app",   // Your Vercel frontend link
+  "https://sehatbydisha.com",          // Your main domain (once active)
+  "https://www.sehatbydisha.com",      // The 'www' version
+  "http://localhost:5173"              // Allow your local development (Vite default)
+];
 
+app.use(cors({
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl)
+    if (!origin) return callback(null, true);
+    
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  methods: ["GET", "POST"],
+  credentials: true
 }));
 app.use(express.json());
 
@@ -121,8 +138,8 @@ app.post("/api/verify-payment", async (req, res) => {
 
 
 // Health check route
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'UP' });
+app.get('/', (req, res) => {
+  res.status(200).json({ status: 'Backend is working well!!' });
 });
 
 const PORT = process.env.PORT || 5000;
