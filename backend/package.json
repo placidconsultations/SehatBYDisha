@@ -1,15 +1,19 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Dietician website backend API",
   "main": "index.js",
-  "type":"module",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "echo 'Build completed'"
   },
-  "keywords": [],
+  "keywords": ["dietician", "api", "razorpay", "firebase"],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -17,7 +21,9 @@
     "dotenv": "^17.2.3",
     "express": "^5.2.1",
     "firebase-admin": "^13.6.0",
-    "nodemon": "^3.1.11",
     "razorpay": "^2.9.6"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }
