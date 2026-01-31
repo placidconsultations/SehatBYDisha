@@ -432,7 +432,7 @@ const Dashboard = () => {
 
                     {/* Manage Services */}
                     <Link
-                      to="/admin/services"
+                      to="/admin/plans"
                       className="flex items-center justify-between w-full px-4 py-3 bg-white border-2 border-gray-100 text-gray-700 rounded-lg hover:border-pink-500 hover:text-pink-600 transition-all duration-200"
                     >
                       <div className="flex items-center">

@@ -708,7 +708,7 @@ const ManagePlans = () => {
                   <div key={item.id} className="p-4 sm:p-6 hover:bg-gray-50 transition-colors">
                     <div className="flex gap-4">
                       {/* Icon */}
-                      <div className="flex-shrink-0 hidden sm:block w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center text-2xl sm:text-3xl">
+                      <div className="flex-shrink-0 hidden sm:flex w-16 h-16 sm:w-20 sm:h-20 rounded-lg overflow-hidden bg-gray-100 items-center justify-center text-2xl sm:text-3xl mx-auto">
                         {activeTab === 'plans' ? (item.icon || '🥗') : (item.icon || '🩺')}
                       </div>
 
