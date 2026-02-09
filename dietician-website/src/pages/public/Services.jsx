@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Background from '../../components/Background';
 import Navbar from '../../components/Navbar';
 import Loader from '../../components/Loader';
@@ -10,6 +11,7 @@ import Footer from '../../components/Footer';
 import { handleBuyPlan } from '../../utils/paymentHandler.js';
 
 const Services = () => {
+  const [searchParams] = useSearchParams();
   const [plans, setPlans] = useState([]);
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +21,14 @@ const Services = () => {
   const [showPlanDetails, setShowPlanDetails] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [purchasedPlanIds, setPurchasedPlanIds] = useState([]);
+
+  useEffect(() => {
+    // Set category from URL parameter
+    const categoryFromUrl = searchParams.get('category');
+    if (categoryFromUrl && ['all', 'personalized', 'condition', 'quick'].includes(categoryFromUrl)) {
+      setSelectedCategory(categoryFromUrl);
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const fetchData = async () => {

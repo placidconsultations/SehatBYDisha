@@ -52,11 +52,10 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4">Our Services</h4>
             <ul className="space-y-2">
-              <li className="mb-2 sm:mb-1"><Link to={'/services#personalized-diet-plans'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Personalized Diet Plans</Link></li>
-              <li className="mb-2 sm:mb-1"><Link to={'/services#weight-management'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Weight Management</Link></li>
-              <li className="mb-2 sm:mb-1"><Link to={'/services#sports-nutrition'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Sports Nutrition</Link></li>
-              <li className="mb-2 sm:mb-1"><Link to={'/services#medical-nutrition-therapy'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Medical Nutrition Therapy</Link></li>
-              <li><Link to={'/services#meal-planning'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">Meal Planning</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services?category=all'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">🚀 All Plans</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services?category=personalized'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">🥗 Personalized Plans</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services?category=condition'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">🩺 Condition-Specific</Link></li>
+              <li className="mb-2 sm:mb-1"><Link to={'/services?category=quick'} className="text-gray-400 hover:text-[var(--color-green)] transition-colors text-sm sm:text-base">⚡ Quick Plans</Link></li>
             </ul>
           </div>
 

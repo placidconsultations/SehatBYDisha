@@ -24,11 +24,11 @@ function smoothScrollToTop() {
 }
 
 export default function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     smoothScrollToTop();
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 }

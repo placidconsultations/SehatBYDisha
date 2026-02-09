@@ -7,7 +7,8 @@ import {
   FaImage,
   FaUser,
   FaWeight,
-  FaCalendarAlt
+  FaCalendarAlt,
+  FaComment
 } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Background from '../../components/Background';
@@ -44,8 +45,12 @@ const ManageTestimonials = () => {
     image: '',
     // Transformation fields
     lostWeight: '',
-    duration: ''
+    duration: '',
+    remark: ''
   });
+
+  // Transformation type state
+  const [transformationType, setTransformationType] = useState('weightLoss'); // 'weightLoss' or 'remark'
 
   useEffect(() => {
     fetchData();
@@ -84,8 +89,10 @@ const ManageTestimonials = () => {
       rating: 5,
       image: '',
       lostWeight: '',
-      duration: ''
+      duration: '',
+      remark: ''
     });
+    setTransformationType('weightLoss');
     setEditingId(null);
     setShowForm(false);
   };
@@ -98,8 +105,17 @@ const ManageTestimonials = () => {
       rating: item.rating || 5,
       image: item.image || '',
       lostWeight: item.lostWeight || '',
-      duration: item.duration || ''
+      duration: item.duration || '',
+      remark: item.remark || ''
     });
+    // Set transformation type based on existing data
+    if (item.lostWeight && item.duration) {
+      setTransformationType('weightLoss');
+    } else if (item.remark) {
+      setTransformationType('remark');
+    } else {
+      setTransformationType('weightLoss');
+    }
     setEditingId(item.id);
     setShowForm(true);
   };
@@ -128,8 +144,10 @@ const ManageTestimonials = () => {
         const transformationData = {
           name: formData.name,
           image: formData.image,
-          lostWeight: formData.lostWeight,
-          duration: formData.duration
+          ...(transformationType === 'weightLoss' 
+            ? { lostWeight: formData.lostWeight, duration: formData.duration }
+            : { remark: formData.remark }
+          )
         };
 
         if (editingId) {
@@ -349,47 +367,100 @@ const ManageTestimonials = () => {
                   {/* Transformation specific fields */}
                   {activeTab === 'transformations' && (
                     <>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label htmlFor="lostWeight" className="block text-sm font-medium text-gray-700 mb-1">
-                            Weight Lost (kg) *
-                          </label>
-                          <div className="relative">
-                            <FaWeight className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                      {/* Transformation Type Selection */}
+                      <div>
+                        <label className="block text-sm font-medium text-gray-700 mb-3">
+                          Transformation Type *
+                        </label>
+                        <div className="flex gap-4">
+                          <label className="flex items-center cursor-pointer">
                             <input
-                              type="number"
-                              id="lostWeight"
-                              name="lostWeight"
-                              value={formData.lostWeight}
-                              onChange={handleInputChange}
-                              required
-                              min="0"
-                              step="0.1"
-                              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-green)] focus:border-transparent"
-                              placeholder="e.g., 10"
+                              type="radio"
+                              name="transformationType"
+                              value="weightLoss"
+                              checked={transformationType === 'weightLoss'}
+                              onChange={(e) => setTransformationType(e.target.value)}
+                              className="mr-2 text-[var(--color-green)] focus:ring-[var(--color-green)]"
                             />
-                          </div>
-                        </div>
-
-                        <div>
-                          <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
-                            Duration *
+                            <span className="text-sm text-gray-700">Weight Loss</span>
                           </label>
-                          <div className="relative">
-                            <FaCalendarAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                          <label className="flex items-center cursor-pointer">
                             <input
-                              type="text"
-                              id="duration"
-                              name="duration"
-                              value={formData.duration}
-                              onChange={handleInputChange}
-                              required
-                              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-green)] focus:border-transparent"
-                              placeholder="e.g., 3 months"
+                              type="radio"
+                              name="transformationType"
+                              value="remark"
+                              checked={transformationType === 'remark'}
+                              onChange={(e) => setTransformationType(e.target.value)}
+                              className="mr-2 text-[var(--color-green)] focus:ring-[var(--color-green)]"
                             />
-                          </div>
+                            <span className="text-sm text-gray-700">Remark</span>
+                          </label>
                         </div>
                       </div>
+
+                      {/* Conditional Fields */}
+                      {transformationType === 'weightLoss' ? (
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                          <div>
+                            <label htmlFor="lostWeight" className="block text-sm font-medium text-gray-700 mb-1">
+                              Weight Lost (kg) *
+                            </label>
+                            <div className="relative">
+                              <FaWeight className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                              <input
+                                type="number"
+                                id="lostWeight"
+                                name="lostWeight"
+                                value={formData.lostWeight}
+                                onChange={handleInputChange}
+                                required
+                                min="0"
+                                step="0.1"
+                                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-green)] focus:border-transparent"
+                                placeholder="e.g., 10"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label htmlFor="duration" className="block text-sm font-medium text-gray-700 mb-1">
+                              Duration *
+                            </label>
+                            <div className="relative">
+                              <FaCalendarAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+                              <input
+                                type="text"
+                                id="duration"
+                                name="duration"
+                                value={formData.duration}
+                                onChange={handleInputChange}
+                                required
+                                className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-green)] focus:border-transparent"
+                                placeholder="e.g., 3 months"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div>
+                          <label htmlFor="remark" className="block text-sm font-medium text-gray-700 mb-1">
+                            Remark *
+                          </label>
+                          <div className="relative">
+                            <FaComment className="absolute left-3 top-6 transform -translate-y-1/2 text-gray-400" />
+                            <textarea
+                              id="remark"
+                              name="remark"
+                              rows="3"
+                              value={formData.remark}
+                              onChange={handleInputChange}
+                              required
+                              className="w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[var(--color-green)] focus:border-transparent"
+                              placeholder="Client's remark or testimonial"
+                            />
+                          </div>
+                        </div>
+                      )}
                     </>
                   )}
 

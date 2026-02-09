@@ -118,7 +118,7 @@ const BlogDetails = () => {
                       <div
                         className="break-words"
                         dangerouslySetInnerHTML={{
-                          __html: blog.content.replace(/<p>/g, '<p class="mb-4 last:mb-0">')
+                          __html: blog.content.replace(/<p>/g, '<p class="mb-4 last:mb-4">')
                         }}
                       />
                     ) : (

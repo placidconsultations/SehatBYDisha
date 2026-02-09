@@ -61,7 +61,7 @@ const About = () => {
                       In 2019, I was diagnosed with <span className="text-[var(--color-green)] font-bold">alopecia areata</span>. Medicines didn't work, and watching my hair fall was emotionally exhausting. I felt <span className="text-[var(--color-green)] font-bold">scared, helpless, and constantly anxious</span> about what was happening to my body.
                     </p>
                     <p>
-                      That's when I decided to <span className="text-[var(--color-green)] font-bold">listen to my body instead of fighting it</span>. I focused on healing through food, lifestyle changes, and mindset work. I identified my food intolerances, worked on my daily habits, and practiced visualisation and self-healing. Slowly, my body began to respond.
+                      That's when I decided to <span className="text-[var(--color-green)] font-bold">listen to my body instead of fighting it</span>. I focused on healing through food, lifestyle changes, and mindset work. I identified my food intolerances, worked on my daily habits, practiced visualisation and self-healing. Slowly, my body began to respond.
                     </p>
                     <p>
                       Within <span className="text-[var(--color-green)] font-bold">six months</span>, I saw real change not just in my hair, but in my confidence and mental strength. That journey taught me that <span className="text-[var(--color-green)] font-bold">healing is possible when we support the body the right way</span>.

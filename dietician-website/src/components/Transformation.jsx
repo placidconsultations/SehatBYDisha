@@ -5,7 +5,7 @@ import Ticker from './Ticker';
 import { getTransformations } from '../firebase/testimonialService';
 import Loader from './Loader';
 
-const TransformationCard = ({ image, name, lostWeight, duration }) => (
+const TransformationCard = ({ image, name, lostWeight, duration, remark }) => (
   <motion.div
     className="relative w-64 sm:w-72 md:w-80 lg:w-72 xl:w-80 bg-gray-50 border-6 border-white rounded-xl shadow-md overflow-hidden hover:shadow-xl transition-all duration-300 flex flex-col"
     initial={{ opacity: 0, y: 20 }}
@@ -20,18 +20,27 @@ const TransformationCard = ({ image, name, lostWeight, duration }) => (
       <motion.img
         src={image}
         alt={`${name}'s transformation`}
-        className="w-full h-full object-cover"
+        className="w-full h-64 object-cover"
         loading="lazy"
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.1 }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-green)]/30 to-transparent" />
-      <div className="p-3 sm:p-4 md:p-5 flex-1 flex items-center">
+      {lostWeight && (
+        <div className="p-3 sm:p-4 md:p-5 flex-1 flex items-center">
         <p className="text-sm sm:text-base text-gray-700 text-center leading-relaxed">
           Our beloved client <span className="font-semibold text-gray-900">{name}</span> lost
           <span className="text-green-600 font-bold"> {lostWeight}kg </span>
           in just <span className="font-medium">{duration}</span>.
         </p>
+      </div>
+      )}
+      <div className="p-3 sm:p-4 md:p-5 flex-1 flex items-center">
+      {remark && (
+          <div className="">
+            <p className="text-sm sm:text-base text-gray-700 leading-relaxed">{remark}</p>
+          </div>
+      )}
       </div>
     </div>
   </motion.div>
