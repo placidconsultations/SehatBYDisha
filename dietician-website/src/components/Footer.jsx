@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaFacebook, FaInstagram, FaLinkedin, FaPhoneAlt, FaEnvelope, FaMapMarkerAlt, FaYoutube } from 'react-icons/fa';
 import { FaXTwitter } from 'react-icons/fa6';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -30,7 +30,7 @@ const Footer = () => {
               <a href="https://www.linkedin.com/company/sehatbydisha" target='_blank' rel='noopener noreferrer' className="text-gray-400 hover:text-[#0077B5] transition-colors">
                 <FaLinkedin size={20} />
               </a>
-              <a href="https://youtube.com/@sehatbydisha" target='_blank' rel='noopener noreferrer'  className="text-gray-400 hover:text-[#FF0033] transition-colors">
+              <a href="https://youtube.com/@sehatbydisha" target='_blank' rel='noopener noreferrer' className="text-gray-400 hover:text-[#FF0033] transition-colors">
                 <FaYoutube size={20} />
               </a>
             </div>
@@ -83,14 +83,43 @@ const Footer = () => {
         <div className="border-t border-gray-800 my-6 sm:my-8"></div>
 
         {/* Copyright */}
-        <div className="flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-          <p className="text-gray-500 text-xs sm:text-sm">© {currentYear} Sehat by Disha. All rights reserved.</p>
-          <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-6 mt-4 md:mt-0">
-            <a href="/privacy-policy" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Privacy Policy</a>
-            <a href="/terms-of-service" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Terms of Service</a>
-            <a href="/sitemap" className="text-gray-500 hover:text-[var(--color-green)] text-xs sm:text-sm transition-colors">Sitemap</a>
-          </div>
-        </div>
+        <div className="w-full flex flex-col items-center">
+  {/* Bottom Row */}
+  <div className="w-full flex flex-col md:flex-row justify-between items-center">
+    
+    {/* Copyright */}
+    <p className="text-gray-400 text-xs text-center md:text-left order-2 md:order-1">
+      © {currentYear} Sehat by Disha | All rights reserved.
+    </p>
+
+    {/* Center Links */}
+    <div className="flex flex-wrap justify-center items-center gap-x-3 text-gray-400 text-[10px] sm:text-xs uppercase tracking-[0.15em] order-1 md:order-2">
+      <a href="/privacy-policy" className="hover:text-[var(--color-green)] transition-colors">Privacy</a>
+      <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+      <a href="/terms-of-service" className="hover:text-[var(--color-green)] transition-colors">Terms</a>
+      <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+      <a href="/sitemap" className="hover:text-[var(--color-green)] transition-colors">Sitemap</a>
+    </div>
+
+    {/* Portfolio Link */}
+    <a 
+      href="https://my-portfolio-theta-one-67.vercel.app" 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className="text-gray-400 text-xs group order-3"
+    >
+      Built with 
+      <span className="inline-block mx-1 group-hover:scale-125 transition-transform duration-300 text-red-500">
+        ❤
+      </span> 
+      by 
+      <span className="ml-1 text-gray-600 group-hover:text-[var(--color-green)] font-medium transition-colors">
+        Yugank
+      </span>
+    </a>
+    
+  </div>
+</div>
       </div>
     </footer>
   );
