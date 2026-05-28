@@ -109,11 +109,11 @@ const Footer = () => {
       className="text-gray-400 text-xs group order-3"
     >
       Built with 
-      <span className="inline-block mx-1 group-hover:scale-125 transition-transform duration-300 text-red-500">
+      <span className="inline-block mx-1 group-hover:scale-125 transition-transform duration-300 text-red-500 animate-bounce">
         ❤
       </span> 
       by 
-      <span className="ml-1 text-gray-600 group-hover:text-[var(--color-green)] font-medium transition-colors">
+      <span className="ml-1 text-gray-600 group-hover:text-[var(--color-green)] font-medium transition-colors duration-300">
         Yugank
       </span>
     </a>

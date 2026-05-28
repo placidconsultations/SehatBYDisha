@@ -49,13 +49,13 @@ const BlogDetails = () => {
 
   if (error || !blog) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="max-w-4xl w-full mx-4 bg-white p-6 rounded-lg shadow-md">
-          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-            <strong className="font-bold">Error: </strong>
-            <span className="block sm:inline">{error || 'Blog post not found'}</span>
-            <Link to="/blogs" className="mt-2 inline-flex items-center text-[var(--color-green)] hover:underline">
-              <FaArrowLeft className="mr-1" /> Back to all posts
+      <div className="min-h-screen flex items-center justify-center bg-gray-50/50 px-4">
+        <div className="max-w-md w-full bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-center">
+          <div className="bg-red-50 text-red-600 px-4 py-4 rounded-xl relative" role="alert">
+            <strong className="font-bold block mb-1">Something went wrong</strong>
+            <span className="block text-sm text-gray-600 mb-4">{error || 'Blog post not found'}</span>
+            <Link to="/blogs" className="inline-flex items-center justify-center gap-2 text-sm font-medium text-[var(--color-green)] hover:text-[var(--color-darkGreen)] transition-colors">
+              <FaArrowLeft size={12} /> Back to all posts
             </Link>
           </div>
         </div>
@@ -68,20 +68,24 @@ const BlogDetails = () => {
       <Background>
         <Navbar />
         <main className="flex-grow pt-16 mb-16">
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
+            
+            {/* Back Button */}
             <Link
               to="/blogs"
-              className="inline-flex items-center text-[var(--color-green)] hover:text-[var(--color-darkGreen)] mb-6 mt-4 transition-colors"
+              className="inline-flex items-center text-sm font-medium text-[var(--color-green)] hover:text-[var(--color-darkGreen)] mb-6 mt-2 transition-colors group"
             >
-              <FaArrowLeft className="mr-2" />
+              <FaArrowLeft className="mr-2 transform group-hover:-translate-x-0.5 transition-transform" />
               Back to all posts
             </Link>
-            <div className="bg-white shadow-sm overflow-hidden">
+
+            {/* Main Split Layout Container */}
+            <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <div className="flex flex-col lg:flex-row">
-                {/* Image Section - Left - Sticky */}
+                
+                {/* Left Side: Image Section (Sticky on desktop, natural flow on mobile) */}
                 {blog.imageUrl && (
-                  <div className="lg:w-1/2 lg:sticky lg:top-16 h-[400px] lg:h-[calc(100vh-8rem)] overflow-hidden">
+                  <div className="w-full lg:w-1/2 lg:sticky lg:top-20 h-[280px] sm:h-[380px] lg:h-[calc(100vh-11rem)] overflow-hidden bg-gray-50">
                     <ImageWithLoader
                       src={blog.imageUrl}
                       alt={blog.title}
@@ -90,48 +94,57 @@ const BlogDetails = () => {
                   </div>
                 )}
 
-                {/* Content Section - Right - Scrollable */}
-                <div className="lg:w-1/2 p-6 sm:p-8 lg:p-12 max-h-[calc(100vh-12rem)]">
-                  <div className="space-y-2 mb-6">
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
-                      {blog.title}
-                    </h1>
+                {/* Right Side: Content Section (Scrolls beautifully on desktop, expands fully on mobile) */}
+                <div className="w-full lg:w-1/2 p-5 sm:p-8 lg:p-12 flex flex-col justify-between lg:max-h-[calc(100vh-11rem)] lg:overflow-y-auto style-scrollbar">
+                  <div>
+                    {/* Header Details */}
+                    <div className="space-y-3 mb-6">
+                      <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 leading-tight tracking-tight">
+                        {blog.title}
+                      </h1>
 
-                    <div className="flex items-center space-x-6 text-sm text-gray-500 pt-2">
-                      <span className="flex items-center">
-                        <FaCalendarAlt className="mr-2 text-[var(--color-green)]" />
-                        {new Date(blog.createdAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </span>
-                      <span className="flex items-center">
-                        <FaUser className="mr-2 text-[var(--color-green)]" />
-                        {blog.author || 'Admin'}
-                      </span>
+                      <div className="flex flex-wrap items-center gap-y-2 gap-x-4 text-xs sm:text-sm text-gray-500 pt-1">
+                        <span className="flex items-center">
+                          <FaCalendarAlt className="mr-2 text-[var(--color-green)] shrink-0" />
+                          {new Date(blog.createdAt).toLocaleDateString('en-US', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
+                        </span>
+                        <span className="hidden sm:inline text-gray-300">|</span>
+                        <span className="flex items-center">
+                          <FaUser className="mr-2 text-[var(--color-green)] shrink-0" />
+                          {blog.author || 'Admin'}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Blog Content Grid (Full text visibility guaranteed) */}
+                    <div className="prose prose-gray max-w-none text-gray-600 text-sm sm:text-base leading-relaxed">
+                      {blog.content ? (
+                        <div
+                          className="break-words space-y-4"
+                          dangerouslySetInnerHTML={{
+                            __html: blog.content.replace(/<p>/g, '<p class="mb-4 last:mb-0">')
+                          }}
+                        />
+                      ) : (
+                        <p className="text-gray-400 italic">No content available for this post.</p>
+                      )}
                     </div>
                   </div>
-
-                  <div className="prose prose-lg overflow-y-auto max-h-[calc(100vh-20rem)] max-w-none text-gray-600">
-                    {blog.content ? (
-                      <div
-                        className="break-words"
-                        dangerouslySetInnerHTML={{
-                          __html: blog.content.replace(/<p>/g, '<p class="mb-4 last:mb-4">')
-                        }}
-                      />
-                    ) : (
-                      <p className="text-gray-500">No content available for this post.</p>
-                    )}
-                  </div>
                 </div>
+
               </div>
             </div>
-            <div className="mt-16">
-              <h2 className="text-2xl font-bold text-gray-900 mb-8">More Articles</h2>
+
+            {/* Bottom Suggestions Section */}
+            <div className="mt-12 sm:mt-16">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-6 sm:mb-8">More Articles</h2>
               <Blogs limit={3} />
             </div>
+
           </div>
         </main>
         <Footer className="mt-auto" />
